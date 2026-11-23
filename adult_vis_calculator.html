@@ -1,0 +1,2227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0f3550">
+<title>Adult VIS &amp; VA-ECMO Shock Team Companion (Singapore Multi-Institution)</title>
+<style>
+:root{
+  --bg:#f2f5f8;
+  --surface:#ffffff;
+  --surface-alt:#f8fafc;
+  --ink:#14202b;
+  --muted:#526373;
+  --border:#d7e0e8;
+  --border-strong:#aebdc9;
+  --brand:#0f3550;
+  --brand-soft:#e8f1f8;
+  --low-bg:#ecfdf3;--low-fg:#14532d;--low-bd:#86efac;
+  --mod-bg:#fefce8;--mod-fg:#713f12;--mod-bd:#fde047;
+  --high-bg:#fff7ed;--high-fg:#9a3412;--high-bd:#fdba74;
+  --sev-bg:#fef2f2;--sev-fg:#991b1b;--sev-bd:#fca5a5;
+  --crit-bg:#450a0a;--crit-fg:#ffffff;--crit-bd:#991b1b;
+  --danger-bg:#fef2f2;--danger-fg:#991b1b;--danger-bd:#ef4444;
+  --warn-bg:#fffbeb;--warn-fg:#92400e;--warn-bd:#f59e0b;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  padding:16px 12px 48px;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+  line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:960px;margin:0 auto}
+header{
+  background:var(--brand);
+  color:#fff;
+  border-radius:var(--radius);
+  padding:18px 20px;
+  margin-bottom:14px;
+  box-shadow:0 4px 16px rgba(15,53,80,.15);
+}
+header h1{margin:0 0 6px;font-size:1.38rem;line-height:1.25;letter-spacing:-.2px}
+header p{margin:0;color:#d6e6f2;font-size:.9rem}
+.badge-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.hdr-pill{
+  display:inline-flex;align-items:center;
+  font-size:.75rem;font-weight:600;
+  padding:3px 9px;border-radius:999px;
+  background:rgba(255,255,255,.14);color:#eef6fc;border:1px solid rgba(255,255,255,.22);
+}
+.panel{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:16px;
+  margin:12px 0;
+  box-shadow:0 1px 6px rgba(16,32,48,.04);
+}
+.panel-title{
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  margin:0 0 12px;font-size:1.05rem;font-weight:700;color:var(--brand);
+}
+.sub-note{font-size:.82rem;color:var(--muted);margin:4px 0 0}
+label{display:block;font-weight:600;font-size:.88rem;margin-bottom:5px;color:var(--ink)}
+input,select,textarea{
+  width:100%;
+  min-height:42px;
+  padding:9px 11px;
+  border:1px solid var(--border-strong);
+  border-radius:9px;
+  font-size:.96rem;
+  font-family:inherit;
+  background:#fff;
+  color:var(--ink);
+  transition:border-color .15s, box-shadow .15s;
+}
+input:focus,select:focus,textarea:focus{
+  outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(15,53,80,.14);
+}
+input.is-invalid,select.is-invalid{
+  border-color:var(--danger-bd);background:#fff5f5;box-shadow:0 0 0 3px rgba(239,68,68,.15);
+}
+input.needs-attention{
+  border-color:#d97706;background:#fffbeb;box-shadow:0 0 0 3px rgba(245,158,11,.18);
+}
+.ctx-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:12px;
+}
+.pdpa-bar{
+  margin-top:10px;
+  padding:8px 11px;
+  border-radius:8px;
+  background:var(--brand-soft);
+  color:var(--brand);
+  font-size:.8rem;
+  font-weight:500;
+}
+.amber-pill{
+  margin-top:8px;
+  padding:8px 10px;
+  border-radius:8px;
+  background:var(--warn-bg);
+  border:1px solid var(--warn-bd);
+  color:var(--warn-fg);
+  font-size:.8rem;
+  font-weight:600;
+}
+.hidden{display:none!important}
+.alerts-stack{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.alert-box{
+  padding:10px 13px;
+  border-radius:10px;
+  font-size:.87rem;
+  font-weight:500;
+  border-left:5px solid;
+}
+.alert-danger{background:var(--danger-bg);color:var(--danger-fg);border-color:var(--danger-bd)}
+.alert-warn{background:var(--warn-bg);color:var(--warn-fg);border-color:var(--warn-bd)}
+.alert-info{background:var(--brand-soft);color:var(--brand);border-color:var(--brand)}
+.drugs-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+.drug-card{
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px;
+  background:var(--surface-alt);
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.drug-card.is-active{
+  border-color:#93b8d4;
+  background:#ffffff;
+}
+.drug-card.is-non-sg{
+  background:#eceff3;
+  border-style:dashed;
+  border-color:#b0bcc7;
+  opacity:.72;
+}
+.drug-card.is-non-sg .drug-name,
+.drug-card.is-non-sg .drug-coeff{
+  color:#5b6773;
+}
+.drug-card.is-non-sg.is-active{
+  opacity:1;
+  background:#f8fafc;
+  border-style:solid;
+  border-color:#93b8d4;
+}
+.non-sg-pill{
+  font-size:.73rem;
+  font-weight:600;
+  color:#475569;
+  background:#e2e8f0;
+  border:1px solid #cbd5e1;
+  border-radius:7px;
+  padding:5px 8px;
+  line-height:1.35;
+}
+.drug-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.drug-name{font-weight:700;font-size:.96rem}
+.drug-coeff{
+  font-size:.74rem;font-weight:600;color:var(--muted);
+  background:#e9eff5;padding:2px 7px;border-radius:999px;white-space:nowrap;
+}
+.dose-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 132px;
+  gap:8px;
+}
+.dil-box{
+  background:#f1f6fa;
+  border:1px dashed #9cb5c9;
+  border-radius:9px;
+  padding:9px;
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+.dil-inputs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+.dil-inputs label{font-size:.76rem;margin-bottom:3px;color:var(--muted)}
+.dil-inputs input{min-height:36px;padding:6px 8px;font-size:.88rem}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip-btn{
+  border:1px solid #b5c8d8;
+  background:#fff;
+  color:var(--brand);
+  border-radius:999px;
+  padding:4px 9px;
+  font-size:.74rem;
+  font-weight:600;
+  cursor:pointer;
+  min-height:28px;
+}
+.chip-btn:hover{background:var(--brand-soft)}
+.chip-btn.active-chip{background:var(--brand);color:#fff;border-color:var(--brand)}
+.dil-caption{font-size:.72rem;color:var(--muted)}
+.drug-hint{font-size:.77rem;color:var(--muted);min-height:1.1em}
+.drug-hint.err{color:var(--danger-fg);font-weight:600}
+details.ext-panel{
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--surface);
+  margin:12px 0;
+  overflow:hidden;
+}
+details.ext-panel > summary{
+  list-style:none;
+  cursor:pointer;
+  padding:14px 16px;
+  font-weight:700;
+  color:var(--brand);
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  background:var(--surface-alt);
+}
+details.ext-panel > summary::-webkit-details-marker{display:none}
+.ext-body{padding:14px 16px;border-top:1px solid var(--border)}
+.count-pill{
+  font-size:.76rem;font-weight:700;padding:3px 9px;border-radius:999px;
+  background:#e3ebf2;color:var(--brand);
+}
+.count-pill.has-items{background:var(--brand);color:#fff}
+.count-pill.is-red{background:var(--danger-bd);color:#fff}
+.score-layout{
+  display:grid;
+  grid-template-columns:1.25fr 1fr;
+  gap:14px;
+  align-items:stretch;
+}
+.score-hero{
+  border-radius:13px;
+  padding:16px 18px;
+  border:2px solid var(--border);
+  background:var(--brand-soft);
+  display:flex;flex-direction:column;justify-content:space-between;gap:8px;
+}
+.score-hero.tier-neutral{background:#f3f6f9;border-color:var(--border);color:var(--ink)}
+.score-hero.tier-low{background:var(--low-bg);border-color:var(--low-bd);color:var(--low-fg)}
+.score-hero.tier-moderate{background:var(--mod-bg);border-color:var(--mod-bd);color:var(--mod-fg)}
+.score-hero.tier-high{background:var(--high-bg);border-color:var(--high-bd);color:var(--high-fg)}
+.score-hero.tier-severe{background:var(--sev-bg);border-color:var(--sev-bd);color:var(--sev-fg)}
+.score-hero.tier-extreme{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.score-hero.tier-critical{background:var(--crit-bg);border-color:var(--crit-bd);color:var(--crit-fg)}
+.score-hero.tier-critical .tier-pill{background:#dc2626;color:#fff}
+.score-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.score-label{font-size:.86rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+.tier-pill{
+  font-size:.76rem;font-weight:700;padding:3px 9px;border-radius:999px;
+  background:rgba(255,255,255,.72);color:inherit;border:1px solid currentColor;
+}
+.score-value{font-size:2.85rem;font-weight:800;letter-spacing:-1.2px;line-height:1.05;font-variant-numeric:tabular-nums}
+.tier-desc{font-size:.85rem;font-weight:600}
+.ext-score-card{
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:15px 16px;
+  background:var(--surface-alt);
+  display:flex;flex-direction:column;justify-content:space-between;gap:6px;
+}
+.ext-score-val{font-size:2rem;font-weight:750;font-variant-numeric:tabular-nums;color:var(--brand)}
+.btn-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button.btn{
+  border:1px solid var(--border-strong);
+  background:#fff;
+  color:var(--ink);
+  border-radius:9px;
+  padding:9px 14px;
+  font-size:.9rem;
+  font-weight:600;
+  cursor:pointer;
+  min-height:40px;
+}
+button.btn:hover{background:#eef3f7}
+button.btn-primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+button.btn-primary:hover{background:#0b283d}
+button.btn-danger{color:var(--danger-fg);border-color:#f3b5b5;background:#fff7f7}
+button.btn-danger:hover{background:#feecec}
+button.btn-sm{min-height:30px;padding:4px 9px;font-size:.78rem}
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.88rem}
+th,td{padding:8px 6px;border-bottom:1px solid var(--border);text-align:left}
+th{font-size:.78rem;text-transform:uppercase;letter-spacing:.3px;color:var(--muted)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tr.inactive-row td{color:#788896}
+tr.subhead-row td{
+  background:#f2f6fa;font-size:.76rem;font-weight:700;text-transform:uppercase;
+  color:var(--brand);letter-spacing:.35px;padding:6px;
+}
+.trend-strip{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin-bottom:10px;
+}
+.metric-box{
+  background:var(--surface-alt);border:1px solid var(--border);
+  border-radius:10px;padding:10px 12px;
+}
+.metric-k{font-size:.75rem;color:var(--muted);font-weight:600}
+.metric-v{font-size:1.25rem;font-weight:750;color:var(--brand);font-variant-numeric:tabular-nums}
+.check-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:8px;
+  margin-top:8px;
+}
+.check-item{
+  display:flex;align-items:flex-start;gap:9px;
+  border:1px solid var(--border);
+  border-radius:9px;
+  padding:9px 10px;
+  background:var(--surface-alt);
+  font-size:.85rem;
+  font-weight:500;
+  cursor:pointer;
+}
+.check-item input[type="checkbox"]{
+  width:18px;height:18px;min-height:18px;margin:2px 0 0;flex-shrink:0;cursor:pointer;
+}
+.check-item.is-excl:has(input:checked){
+  background:var(--danger-bg);border-color:var(--danger-bd);color:var(--danger-fg);font-weight:600;
+}
+.check-item.is-perf:has(input:checked){
+  background:var(--warn-bg);border-color:var(--warn-bd);color:var(--warn-fg);font-weight:600;
+}
+.sbar-box{
+  width:100%;
+  min-height:220px;
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+  font-size:.82rem;
+  line-height:1.42;
+  background:#0f172a;
+  color:#e2e8f0;
+  border:1px solid #334155;
+  border-radius:10px;
+  padding:12px;
+  resize:vertical;
+}
+.copy-feedback{font-size:.84rem;font-weight:600;color:#15803d;align-self:center}
+.refs-list{margin:8px 0 0;padding-left:18px;font-size:.82rem;color:var(--muted)}
+.refs-list li{margin:4px 0}
+.small-err{font-size:.78rem;color:var(--danger-fg);font-weight:600;margin-top:4px}
+@media(max-width:720px){
+  .drugs-grid{grid-template-columns:1fr}
+  .score-layout{grid-template-columns:1fr}
+  .trend-strip{grid-template-columns:1fr}
+}
+@media(max-width:460px){
+  .dose-row{grid-template-columns:minmax(0,1fr) 118px}
+}
+@media print{
+  body{background:#fff;padding:0}
+  header{background:#fff;color:#000;border:2px solid #000;box-shadow:none}
+  header p,.hdr-pill{color:#222;border-color:#666}
+  .panel,.ext-panel{box-shadow:none;break-inside:avoid}
+  .btn-row,.chips,.no-print{display:none!important}
+  .sbar-box{background:#fff;color:#000;border:1px solid #000}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Adult VIS &amp; VA-ECMO Shock Team Companion</h1>
+    <p>Singapore Multi-Institution Critical Care &amp; Acute Referral Bedside Aid (Offline Single-File)</p>
+    <div class="badge-row">
+      <span class="hdr-pill">Core VIS: Gaies 2010 / AppCardio</span>
+      <span class="hdr-pill">Full 13-Drug VIS: Belletti 2021</span>
+      <span class="hdr-pill">Norepi Base/Salt Guardrail: SCCM/ESICM 2024</span>
+      <span class="hdr-pill">ELSO 2021 &amp; SCAI Shock Companion</span>
+    </div>
+  </header>
+
+  <section class="panel" aria-label="Patient context">
+    <div class="panel-title">
+      <span>1. Patient &amp; Institutional Context</span>
+      <span class="sub-note" style="margin:0">Verify weight, weight basis &amp; noradrenaline salt convention</span>
+    </div>
+    <div class="ctx-grid">
+      <div id="weight-wrap">
+        <label for="weight">Dosing Weight (kg) — required if using U/hr, mcg/min, mg/hr, or mL/hr</label>
+        <input id="weight" type="number" min="0" step="any" value="" placeholder="Enter kg" inputmode="decimal">
+        <div id="weight-error" class="small-err hidden"></div>
+      </div>
+      <div>
+        <label for="weight-basis">Weight Basis</label>
+        <select id="weight-basis">
+          <option value="ABW" selected>Actual Body Weight (ABW)</option>
+          <option value="AdjBW">Adjusted Body Weight (AdjBW)</option>
+          <option value="IBW">Ideal Body Weight (IBW)</option>
+        </select>
+        <div class="sub-note">Follow local ICU dosing-weight protocol (ABW vs AdjBW/IBW).</div>
+      </div>
+      <div>
+        <label for="norepi-salt">Noradrenaline Formulation Convention</label>
+        <select id="norepi-salt">
+          <option value="base" selected>Noradrenaline Base (1× — SG hospital standard)</option>
+          <option value="tartrate">Noradrenaline Tartrate / Bitartrate salt (×0.5 base equiv.)</option>
+        </select>
+        <div class="sub-note">2 mg tartrate/bitartrate salt = 1 mg noradrenaline base.</div>
+      </div>
+      <div>
+        <label for="site-label">Site / Unit (optional)</label>
+        <input id="site-label" type="text" maxlength="80" placeholder="e.g. MICU / CCU / CTSICU / ED / Mobile ECMO Referral">
+      </div>
+    </div>
+    <div class="pdpa-bar">
+      <strong>PDPA-safe &amp; Offline:</strong> Runs 100% locally in your browser with zero network calls. Do <strong>not</strong> enter patient identifiers (name, NRIC, MRN, or DOB).
+    </div>
+  </section>
+
+  <div id="blocking-alerts" class="alerts-stack hidden" aria-live="assertive"></div>
+  <div id="plausibility-alerts" class="alerts-stack hidden" aria-live="polite"></div>
+
+  <section class="panel" aria-label="Core VIS Infusions">
+    <div class="panel-title">
+      <span>2. Core VIS Infusions (Gaies 2010 — Matches AppCardio)</span>
+      <span class="sub-note" style="margin:0">Enter active pump rates; switch unit to mL/hr to use syringe/bag dilutions</span>
+    </div>
+
+    <div class="drugs-grid">
+      <!-- Noradrenaline -->
+      <article class="drug-card" id="card-norepi">
+        <div class="drug-head">
+          <span class="drug-name">Noradrenaline (Norepinephrine)</span>
+          <span class="drug-coeff">×100 (base equiv.)</span>
+        </div>
+        <div class="dose-row">
+          <input id="dose-norepi" type="number" min="0" step="any" value="" placeholder="0" inputmode="decimal" aria-label="Noradrenaline dose">
+          <select id="unit-norepi" aria-label="Noradrenaline unit">
+            <option value="mcg/kg/min" selected>mcg/kg/min</option>
+            <option value="mcg/min">mcg/min</option>
+            <option value="mg/hr">mg/hr</option>
+            <option value="mL/hr">mL/hr</option>
+          </select>
+        </div>
+        <div id="norepi-salt-pill" class="amber-pill hidden">
+          Tartrate/bitartrate selected: converted ×0.5 to base equivalent (2 mg salt = 1 mg base).
+        </div>
+        <div id="dil-row-norepi" class="dil-box hidden">
+          <div class="dil-inputs">
+            <div><label for="amt-norepi">Drug amount (mg)</label><input id="amt-norepi" type="number" min="0" step="any" value="" placeholder="e.g. 4" inputmode="decimal"></div>
+            <div><label for="vol-norepi">Total volume (mL)</label><input id="vol-norepi" type="number" min="0" step="any" value="" placeholder="e.g. 50" inputmode="decimal"></div>
+          </div>
+          <div class="chips">
+            <button type="button" class="chip-btn" data-drug="norepi" data-amt="4" data-vol="50">4 mg / 50 mL</button>
+            <button type="button" class="chip-btn" data-drug="norepi" data-amt="8" data-vol="50">8 mg / 50 mL</button>
+            <button type="button" class="chip-btn" data-drug="norepi" data-amt="16" data-vol="50">16 mg / 50 mL</button>
+            <button type="button" class="chip-btn" data-drug="norepi" data-amt="4" data-vol="250">4 mg / 250 mL</button>
+          </div>
+          <div class="dil-caption">SG common dilutions — verify against syringe/bag label.</div>
+        </div>
+        <div class="drug-hint" id="hint-norepi">Inactive</div>
+      </article>
+
+      <!-- Adrenaline -->
+      <article class="drug-card" id="card-epi">
+        <div class="drug-head">
+          <span class="drug-name">Adrenaline (Epinephrine)</span>
+          <span class="drug-coeff">×100</span>
+        </div>
+        <div class="dose-row">
+          <input id="dose-epi" type="number" min="0" step="any" value="" placeholder="0" inputmode="decimal" aria-label="Adrenaline dose">
+          <select id="unit-epi" aria-label="Adrenaline unit">
+            <option value="mcg/kg/min" selected>mcg/kg/min</option>
+            <option value="mcg/min">mcg/min</option>
+            <option value="mg/hr">mg/hr</option>
+            <option value="mL/hr">mL/hr</option>
+          </select>
+        </div>
+        <div id="dil-row-epi" class="dil-box hidden">
+          <div class="dil-inputs">
+            <div><label for="amt-epi">Drug amount (mg)</label><input id="amt-epi" type="number" min="0" step="any" value="" placeholder="e.g. 4" inputmode="decimal"></div>
+            <div><label for="vol-epi">Total volume (mL)</label><input id="vol-epi" type="number" min="0" step="any" value="" placeholder="e.g. 50" inputmode="decimal"></div>
+          </div>
+          <div class="chips">
+            <button type="button" class="chip-btn" data-drug="epi" data-amt="4" data-vol="50">4 mg / 50 mL</button>
+            <button type="button" class="chip-btn" data-drug="epi" data-amt="8" data-vol="50">8 mg / 50 mL</button>
+            <button type="button" class="chip-btn" data-drug="epi" data-amt="4" data-vol="100">4 mg / 100 mL</button>
+          </div>
+          <div class="dil-caption">SG common dilutions — verify against syringe/bag label.</div>
+        </div>
+        <div class="drug-hint" id="hint-epi">Inactive</div>
+      </article>
+
+      <!-- Vasopressin -->
+      <article class="drug-card" id="card-vaso">
+        <div class="drug-head">
+          <span class="drug-name">Vasopressin (Argipressin)</span>
+          <span class="drug-coeff">×10,000 (U/kg/min)</span>
+        </div>
+        <div class="dose-row">
+          <input id="dose-vaso" type="number" min="0" step="any" value="" placeholder="0" inputmode="decimal" aria-label="Vasopressin dose">
+          <select id="unit-vaso" aria-label="Vasopressin unit">
+            <option value="U/hr" selected>U/hr</option>
+            <option value="U/min">U/min</option>
+            <option value="U/kg/min">U/kg/min</option>
+            <option value="mL/hr">mL/hr</option>
+          </select>
+        </div>
+        <div id="dil-row-vaso" class="dil-box hidden">
+          <div class="dil-inputs">
+            <div><label for="amt-vaso">Drug amount (Units)</label><input id="amt-vaso" type="number" min="0" step="any" value="" placeholder="e.g. 20" inputmode="decimal"></div>
+            <div><label for="vol-vaso">Total volume (mL)</label><input id="vol-vaso" type="number" min="0" step="any" value="" placeholder="e.g. 50" inputmode="decimal"></div>
+          </div>
+          <div class="chips">
+            <button type="button" class="chip-btn" data-drug="vaso" data-amt="20" data-vol="50">20 U / 50 mL</button>
+            <button type="button" class="chip-btn" data-drug="vaso" data-amt="20" data-vol="100">20 U / 100 mL</button>
+            <button type="button" class="chip-btn" data-drug="vaso" data-amt="40" data-vol="50">40 U / 50 mL</button>
+          </div>
+          <div class="dil-caption">SG common dilutions — verify against syringe/bag label.</div>
+        </div>
+        <div class="drug-hint" id="hint-vaso">Inactive (typical fixed rate: 1.8–2.4 U/hr = 0.03–0.04 U/min)</div>
+      </article>
+
+      <!-- Dobutamine -->
+      <article class="drug-card" id="card-dobutamine">
+        <div class="drug-head">
+          <span class="drug-name">Dobutamine</span>
+          <span class="drug-coeff">×1</span>
+        </div>
+        <div class="dose-row">
+          <input id="dose-dobutamine" type="number" min="0" step="any" value="" placeholder="0" inputmode="decimal" aria-label="Dobutamine dose">
+          <select id="unit-dobutamine" aria-label="Dobutamine unit">
+            <option value="mcg/kg/min" selected>mcg/kg/min</option>
+            <option value="mcg/min">mcg/min</option>
+            <option value="mg/hr">mg/hr</option>
+            <option value="mL/hr">mL/hr</option>
+          </select>
+        </div>
+        <div id="dil-row-dobutamine" class="dil-box hidden">
+          <div class="dil-inputs">
+            <div><label for="amt-dobutamine">Drug amount (mg)</label><input id="amt-dobutamine" type="number" min="0" step="any" value="" placeholder="e.g. 250" inputmode="decimal"></div>
+            <div><label for="vol-dobutamine">Total volume (mL)</label><input id="vol-dobutamine" type="number" min="0" step="any" value="" placeholder="e.g. 50" inputmode="decimal"></div>
+          </div>
+          <div class="chips">
+            <button type="button" class="chip-btn" data-drug="dobutamine" data-amt="250" data-vol="50">250 mg / 50 mL</button>
+            <button type="button" class="chip-btn" data-drug="dobutamine" data-amt="250" data-vol="250">250 mg / 250 mL</button>
+          </div>
+          <div class="dil-caption">SG common dilutions — verify against syringe/bag label.</div>
+        </div>
+        <div class="drug-hint" id="hint-dobutamine">Inactive</div>
+      </article>
+
+      <!-- Milrinone -->
+      <article class="drug-card" id="card-milrinone">
+        <div class="drug-head">
+          <span class="drug-name">Milrinone</span>
+          <span class="drug-coeff">×10</span>
+        </div>
+        <div class="dose-row">
+          <input id="dose-milrinone" type="number" min="0" step="any" value="" placeholder="0" inputmode="decimal" aria-label="Milrinone dose">
+          <select id="unit-milrinone" aria-label="Milrinone unit">
+            <option value="mcg/kg/min" selected>mcg/kg/min</option>
+            <option value="mcg/min">mcg/min</option>
+            <option value="mg/hr">mg/hr</option>
+            <option value="mL/hr">mL/hr</option>
+          </select>
+        </div>
+        <div id="dil-row-milrinone" class="dil-box hidden">
+          <div class="dil-inputs">
+            <div><label for="amt-milrinone">Drug amount (mg)</label><input id="amt-milrinone" type="number" min="0" step="any" value="" placeholder="e.g. 10" inputmode="decimal"></div>
+            <div><label for="vol-milrinone">Total volume (mL)</label><input id="vol-milrinone" type="number" min="0" step="any" value="" placeholder="e.g. 50" inputmode="decimal"></div>
+          </div>
+          <div class="chips">
+            <button type="button" class="chip-btn" data-drug="milrinone" data-amt="10" data-vol="50">10 mg / 50 mL</button>
+            <button type="button" class="chip-btn" data-drug="milrinone" data-amt="20" data-vol="100">20 mg / 100 mL</button>
+            <button type="button" class="chip-btn" data-drug="milrinone" data-amt="10" data-vol="100">10 mg / 100 mL</button>
+          </div>
+          <div class="dil-caption">SG common dilutions — verify against syringe/bag label.</div>
+        </div>
+        <div class="drug-hint" id="hint-milrinone">Inactive</div>
+      </article>
+
+      <!-- Dopamine -->
+      <article class="drug-card" id="card-dopamine">
+        <div class="drug-head">
+          <span class="drug-name">Dopamine</span>
+          <span class="drug-coeff">×1</span>
+        </div>
+        <div class="dose-row">
+          <input id="dose-dopamine" type="number" min="0" step="any" value="" placeholder="0" inputmode="decimal" aria-label="Dopamine dose">
+          <select id="unit-dopamine" aria-label="Dopamine unit">
+            <option value="mcg/kg/min" selected>mcg/kg/min</option>
+            <option value="mcg/min">mcg/min</option>
+            <option value="mg/hr">mg/hr</option>
+            <option value="mL/hr">mL/hr</option>
+          </select>
+        </div>
+        <div id="dil-row-dopamine" class="dil-box hidden">
+          <div class="dil-inputs">
+            <div><label for="amt-dopamine">Drug amount (mg)</label><input id="amt-dopamine" type="number" min="0" step="any" value="" placeholder="e.g. 200" inputmode="decimal"></div>
+            <div><label for="vol-dopamine">Total volume (mL)</label><input id="vol-dopamine" type="number" min="0" step="any" value="" placeholder="e.g. 50" inputmode="decimal"></div>
+          </div>
+          <div class="chips">
+            <button type="button" class="chip-btn" data-drug="dopamine" data-amt="200" data-vol="50">200 mg / 50 mL</button>
+            <button type="button" class="chip-btn" data-drug="dopamine" data-amt="200" data-vol="250">200 mg / 250 mL</button>
+            <button type="button" class="chip-btn" data-drug="dopamine" data-amt="400" data-vol="250">400 mg / 250 mL</button>
+          </div>
+          <div class="dil-caption">SG common dilutions — verify against syringe/bag label.</div>
+        </div>
+        <div class="drug-hint" id="hint-dopamine">Inactive</div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Extended Adult VIS (Belletti 2021) -->
+  <details id="extended-details" class="ext-panel">
+    <summary>
+      <span>3. Extended Adult ICU / Rescue Agents — Full 13-Drug Belletti 2021 Parity (7 Agents)</span>
+      <span id="extended-active-badge" class="count-pill">0 active</span>
+    </summary>
+    <div class="ext-body">
+      <p class="sub-note" style="margin:0 0 12px">Kept separate from Core 6-drug Gaies VIS so both scores remain directly comparable against AppCardio &amp; published ECMO cohorts.</p>
+      <div class="drugs-grid">
+        <!-- Phenylephrine -->
+        <article class="drug-card" id="card-phenylephrine">
+          <div class="drug-head">
+            <span class="drug-name">Phenylephrine</span>
+            <span class="drug-coeff">×10</span>
+          </div>
+          <div class="dose-row">
+            <input id="dose-phenylephrine" type="number" min="0" step="any" value="" placeholder="0" inputmode="decimal" aria-label="Phenylephrine dose">
+            <select id="unit-phenylephrine" aria-label="Phenylephrine unit">
+              <option value="mcg/kg/min" selected>mcg/kg/min</option>
+              <option value="mcg/min">mcg/min</option>
+              <option value="mg/hr">mg/hr</option>
+              <option value="mL/hr">mL/hr</option>
+            </select>
+          </div>
+          <div id="dil-row-phenylephrine" class="dil-box hidden">
+            <div class="dil-inputs">
+              <div><label for="amt-phenylephrine">Drug amount (mg)</label><input id="amt-phenylephrine" type="number" min="0" step="any" value="" placeholder="e.g. 10" inputmode="decimal"></div>
+              <div><label for="vol-phenylephrine">Total volume (mL)</label><input id="vol-phenylephrine" type="number" min="0" step="any" value="" placeholder="e.g. 50" inputmode="decimal"></div>
+            </div>
+            <div class="chips">
+              <button type="button" class="chip-btn" data-drug="phenylephrine" data-amt="10" data-vol="50">10 mg / 50 mL</button>
+              <button type="button" class="chip-btn" data-drug="phenylephrine" data-amt="20" data-vol="50">20 mg / 50 mL</button>
+              <button type="button" class="chip-btn" data-drug="phenylephrine" data-amt="10" data-vol="100">10 mg / 100 mL</button>
+            </div>
+            <div class="dil-caption">SG common dilutions — verify against syringe/bag label.</div>
+          </div>
+          <div class="drug-hint" id="hint-phenylephrine">Inactive</div>
+        </article>
+
+        <!-- Levosimendan -->
+        <article class="drug-card" id="card-levosimendan">
+          <div class="drug-head">
+            <span class="drug-name">Levosimendan</span>
+            <span class="drug-coeff">×50</span>
+          </div>
+          <div class="dose-row">
+            <input id="dose-levosimendan" type="number" min="0" step="any" value="" placeholder="0" inputmode="decimal" aria-label="Levosimendan dose">
+            <select id="unit-levosimendan" aria-label="Levosimendan unit">
+              <option value="mcg/kg/min" selected>mcg/kg/min</option>
+              <option value="mcg/min">mcg/min</option>
+              <option value="mg/hr">mg/hr</option>
+              <option value="mL/hr">mL/hr</option>
+            </select>
+          </div>
+          <div id="dil-row-levosimendan" class="dil-box hidden">
+            <div class="dil-inputs">
+              <div><label for="amt-levosimendan">Drug amount (mg)</label><input id="amt-levosimendan" type="number" min="0" step="any" value="" placeholder="e.g. 12.5" inputmode="decimal"></div>
+              <div><label for="vol-levosimendan">Total volume (mL)</label><input id="vol-levosimendan" type="number" min="0" step="any" value="" placeholder="e.g. 500" inputmode="decimal"></div>
+            </div>
+            <div class="chips">
+              <button type="button" class="chip-btn" data-drug="levosimendan" data-amt="12.5" data-vol="500">12.5 mg / 500 mL</button>
+              <button type="button" class="chip-btn" data-drug="levosimendan" data-amt="12.5" data-vol="250">12.5 mg / 250 mL</button>
+            </div>
+            <div class="dil-caption">SG common dilutions — verify against bag label.</div>
+          </div>
+          <div class="drug-hint" id="hint-levosimendan">Inactive</div>
+        </article>
+
+        <!-- Methylene Blue -->
+        <article class="drug-card" id="card-methyleneBlue">
+          <div class="drug-head">
+            <span class="drug-name">Methylene Blue</span>
+            <span class="drug-coeff">×20 (mg/kg/hr)</span>
+          </div>
+          <div class="dose-row">
+            <input id="dose-methyleneBlue" type="number" min="0" step="any" value="" placeholder="0" inputmode="decimal" aria-label="Methylene Blue dose">
+            <select id="unit-methyleneBlue" aria-label="Methylene Blue unit">
+              <option value="mg/kg/hr" selected>mg/kg/hr</option>
+              <option value="mg/hr">mg/hr</option>
+            </select>
+          </div>
+          <div class="drug-hint" id="hint-methyleneBlue">Inactive</div>
+        </article>
+
+        <!-- Angiotensin II -->
+        <article class="drug-card" id="card-angiotensin2">
+          <div class="drug-head">
+            <span class="drug-name">Angiotensin II</span>
+            <span class="drug-coeff">×0.25 (ng/kg/min)</span>
+          </div>
+          <div class="dose-row">
+            <input id="dose-angiotensin2" type="number" min="0" step="any" value="" placeholder="0" inputmode="decimal" aria-label="Angiotensin II dose">
+            <select id="unit-angiotensin2" aria-label="Angiotensin II unit">
+              <option value="ng/kg/min" selected>ng/kg/min</option>
+              <option value="mcg/kg/min">mcg/kg/min</option>
+            </select>
+          </div>
+          <div class="drug-hint" id="hint-angiotensin2">Inactive</div>
+        </article>
+
+        <!-- Terlipressin -->
+        <article class="drug-card" id="card-terlipressin">
+          <div class="drug-head">
+            <span class="drug-name">Terlipressin</span>
+            <span class="drug-coeff">×10 (mcg/min flat)</span>
+          </div>
+          <div class="dose-row">
+            <input id="dose-terlipressin" type="number" min="0" step="any" value="" placeholder="0" inputmode="decimal" aria-label="Terlipressin dose">
+            <select id="unit-terlipressin" aria-label="Terlipressin unit">
+              <option value="mcg/min" selected>mcg/min</option>
+              <option value="mcg/hr">mcg/hr</option>
+              <option value="mg/hr">mg/hr</option>
+            </select>
+          </div>
+          <div class="drug-hint" id="hint-terlipressin">Inactive</div>
+        </article>
+
+        <!-- Olprinone (Non-SG HSA / NDF) -->
+        <article class="drug-card is-non-sg" id="card-olprinone">
+          <div class="drug-head">
+            <span class="drug-name">Olprinone</span>
+            <span class="drug-coeff">×25</span>
+          </div>
+          <div class="non-sg-pill">Not registered in SG HSA Therapeutic Products or NDF (primarily Japan; NPB / Belletti 2021 parity)</div>
+          <div class="dose-row">
+            <input id="dose-olprinone" type="number" min="0" step="any" value="" placeholder="0" inputmode="decimal" aria-label="Olprinone dose">
+            <select id="unit-olprinone" aria-label="Olprinone unit">
+              <option value="mcg/kg/min" selected>mcg/kg/min</option>
+              <option value="mcg/min">mcg/min</option>
+              <option value="mg/hr">mg/hr</option>
+              <option value="mL/hr">mL/hr</option>
+            </select>
+          </div>
+          <div id="dil-row-olprinone" class="dil-box hidden">
+            <div class="dil-inputs">
+              <div><label for="amt-olprinone">Drug amount (mg)</label><input id="amt-olprinone" type="number" min="0" step="any" value="" placeholder="e.g. 5" inputmode="decimal"></div>
+              <div><label for="vol-olprinone">Total volume (mL)</label><input id="vol-olprinone" type="number" min="0" step="any" value="" placeholder="e.g. 50" inputmode="decimal"></div>
+            </div>
+            <div class="chips">
+              <button type="button" class="chip-btn" data-drug="olprinone" data-amt="5" data-vol="50">5 mg / 50 mL</button>
+            </div>
+            <div class="dil-caption">Reference dilution — verify against infusion label.</div>
+          </div>
+          <div class="drug-hint" id="hint-olprinone">Inactive</div>
+        </article>
+
+        <!-- Enoximone (Non-SG HSA / NDF) -->
+        <article class="drug-card is-non-sg" id="card-enoximone">
+          <div class="drug-head">
+            <span class="drug-name">Enoximone</span>
+            <span class="drug-coeff">×1</span>
+          </div>
+          <div class="non-sg-pill">Not registered in SG HSA Therapeutic Products or NDF (primarily Europe; NPB / Belletti 2021 parity)</div>
+          <div class="dose-row">
+            <input id="dose-enoximone" type="number" min="0" step="any" value="" placeholder="0" inputmode="decimal" aria-label="Enoximone dose">
+            <select id="unit-enoximone" aria-label="Enoximone unit">
+              <option value="mcg/kg/min" selected>mcg/kg/min</option>
+              <option value="mcg/min">mcg/min</option>
+              <option value="mg/hr">mg/hr</option>
+              <option value="mL/hr">mL/hr</option>
+            </select>
+          </div>
+          <div id="dil-row-enoximone" class="dil-box hidden">
+            <div class="dil-inputs">
+              <div><label for="amt-enoximone">Drug amount (mg)</label><input id="amt-enoximone" type="number" min="0" step="any" value="" placeholder="e.g. 100" inputmode="decimal"></div>
+              <div><label for="vol-enoximone">Total volume (mL)</label><input id="vol-enoximone" type="number" min="0" step="any" value="" placeholder="e.g. 50" inputmode="decimal"></div>
+            </div>
+            <div class="chips">
+              <button type="button" class="chip-btn" data-drug="enoximone" data-amt="100" data-vol="50">100 mg / 50 mL</button>
+            </div>
+            <div class="dil-caption">Reference dilution — verify against infusion label.</div>
+          </div>
+          <div class="drug-hint" id="hint-enoximone">Inactive</div>
+        </article>
+      </div>
+    </div>
+  </details>
+
+  <!-- Score Readout & Breakdown -->
+  <section class="panel" aria-label="VIS Score and Breakdown">
+    <div class="panel-title">
+      <span>4. VIS Readout &amp; Risk Stratification</span>
+      <div class="btn-row" style="margin:0">
+        <button type="button" class="btn btn-sm" id="reset-doses-btn">Reset Doses</button>
+        <button type="button" class="btn btn-sm btn-danger" id="reset-all-btn">New Patient (Reset All)</button>
+      </div>
+    </div>
+
+    <div class="score-layout">
+      <div id="core-score-box" class="score-hero tier-neutral" aria-live="polite">
+        <div class="score-top">
+          <span class="score-label">Core VIS (Gaies 2010 / AppCardio)</span>
+          <span id="core-tier-badge" class="tier-pill">No Active Support</span>
+        </div>
+        <div id="core-score" class="score-value">0.00</div>
+        <div id="core-tier-desc" class="tier-desc">No active infusions entered</div>
+      </div>
+
+      <div id="extended-score-box" class="ext-score-card" aria-live="polite">
+        <div class="score-label" style="color:var(--muted)">Extended Adult VIS (Belletti 2021)</div>
+        <div id="extended-score" class="ext-score-val">0.00</div>
+        <div id="extended-delta-note" class="sub-note" style="margin:0">Extended VIS = Core VIS (no extended agents active)</div>
+        <div id="extended-tier-alert" class="amber-pill hidden" style="margin-top:4px"></div>
+      </div>
+    </div>
+
+    <div id="vis-guardrail-callout" class="alert-box alert-warn hidden" style="margin-top:12px">
+      <strong>VA-ECMO Decision Guardrail (Caruso 2024; ECLS-SHOCK 2023):</strong> VIS &gt; 20 signals severe pharmacological burden and should trigger early Shock Team review, but <strong>VIS alone cannot distinguish cardiogenic from vasodilatory shock and is NOT a standalone VA-ECMO indication</strong>. Confirm shock phenotype, lactate trajectory, bedside echocardiography, and reversibility below.
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Agent</th>
+          <th>Canonical Rate</th>
+          <th class="num">VIS Points</th>
+        </tr>
+      </thead>
+      <tbody id="breakdown-body">
+        <tr id="row-norepi" class="inactive-row"><td>Noradrenaline</td><td id="canon-norepi">0.000 mcg/kg/min</td><td id="contrib-norepi" class="num">0.00</td></tr>
+        <tr id="row-epi" class="inactive-row"><td>Adrenaline</td><td id="canon-epi">0.000 mcg/kg/min</td><td id="contrib-epi" class="num">0.00</td></tr>
+        <tr id="row-vaso" class="inactive-row"><td>Vasopressin</td><td id="canon-vaso">0.000000 U/kg/min</td><td id="contrib-vaso" class="num">0.00</td></tr>
+        <tr id="row-dobutamine" class="inactive-row"><td>Dobutamine</td><td id="canon-dobutamine">0.000 mcg/kg/min</td><td id="contrib-dobutamine" class="num">0.00</td></tr>
+        <tr id="row-milrinone" class="inactive-row"><td>Milrinone</td><td id="canon-milrinone">0.000 mcg/kg/min</td><td id="contrib-milrinone" class="num">0.00</td></tr>
+        <tr id="row-dopamine" class="inactive-row"><td>Dopamine</td><td id="canon-dopamine">0.000 mcg/kg/min</td><td id="contrib-dopamine" class="num">0.00</td></tr>
+        <tr id="extended-breakdown-divider" class="subhead-row hidden"><td colspan="3">Extended Adult ICU / Rescue Agents (Belletti 2021)</td></tr>
+        <tr id="row-phenylephrine" class="inactive-row hidden"><td>Phenylephrine</td><td id="canon-phenylephrine">0.000 mcg/kg/min</td><td id="contrib-phenylephrine" class="num">0.00</td></tr>
+        <tr id="row-levosimendan" class="inactive-row hidden"><td>Levosimendan</td><td id="canon-levosimendan">0.000 mcg/kg/min</td><td id="contrib-levosimendan" class="num">0.00</td></tr>
+        <tr id="row-methyleneBlue" class="inactive-row hidden"><td>Methylene Blue</td><td id="canon-methyleneBlue">0.000 mg/kg/hr</td><td id="contrib-methyleneBlue" class="num">0.00</td></tr>
+        <tr id="row-angiotensin2" class="inactive-row hidden"><td>Angiotensin II</td><td id="canon-angiotensin2">0.0 ng/kg/min</td><td id="contrib-angiotensin2" class="num">0.00</td></tr>
+        <tr id="row-terlipressin" class="inactive-row hidden"><td>Terlipressin</td><td id="canon-terlipressin">0.000 mcg/min</td><td id="contrib-terlipressin" class="num">0.00</td></tr>
+        <tr id="row-olprinone" class="inactive-row hidden"><td>Olprinone <small>(Non-SG HSA/NDF)</small></td><td id="canon-olprinone">0.000 mcg/kg/min</td><td id="contrib-olprinone" class="num">0.00</td></tr>
+        <tr id="row-enoximone" class="inactive-row hidden"><td>Enoximone <small>(Non-SG HSA/NDF)</small></td><td id="canon-enoximone">0.000 mcg/kg/min</td><td id="contrib-enoximone" class="num">0.00</td></tr>
+        <tr id="extended-breakdown-sub" class="hidden"><td><strong>Extended Agents Subtotal</strong></td><td></td><td id="contrib-ext-sub" class="num"><strong>0.00</strong></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Serial VIS-max Tracker -->
+  <section class="panel" aria-label="Serial VIS-max Tracker">
+    <div class="panel-title">
+      <span>5. Serial VIS Trend &amp; VIS-max Tracker (Session-Only)</span>
+      <div class="btn-row" style="margin:0;align-items:center">
+        <span id="snap-status" class="small-err" style="margin:0" role="status" aria-live="polite"></span>
+        <button type="button" class="btn btn-primary btn-sm" id="record-snapshot-btn">Record Snapshot</button>
+        <button type="button" class="btn btn-sm" id="clear-log-btn">Clear Log</button>
+      </div>
+    </div>
+    <div class="trend-strip">
+      <div class="metric-box"><div class="metric-k">Recorded Snapshots</div><div id="snap-count" class="metric-v">0</div></div>
+      <div class="metric-box"><div class="metric-k">Peak Core VIS (VIS-max)</div><div id="snap-vis-max" class="metric-v">—</div></div>
+      <div class="metric-box"><div class="metric-k">Latest Core VIS Trend</div><div id="snap-trend" class="metric-v">—</div></div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Time</th>
+          <th class="num">Core VIS</th>
+          <th class="num">Ext VIS</th>
+          <th class="num">MAP</th>
+          <th class="num">Lactate</th>
+          <th class="num no-print">Action</th>
+        </tr>
+      </thead>
+      <tbody id="log-tbody">
+        <tr id="log-empty-row"><td colspan="7" style="color:var(--muted);text-align:center">No serial snapshots recorded yet. Record snapshots during escalation to track 1h–6h VIS-max.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- VA-ECMO Shock Team Companion -->
+  <section class="panel" aria-label="VA-ECMO Shock Team Companion">
+    <div class="panel-title">
+      <span>6. VA-ECMO Shock Team Activation Companion (ELSO 2021 / SCAI)</span>
+      <span class="sub-note" style="margin:0">Compatible with institutional &amp; mobile ECMO retrieval workflows across Singapore</span>
+    </div>
+
+    <div class="ctx-grid">
+      <div>
+        <label for="shock-phenotype">Shock Phenotype / Primary Etiology</label>
+        <select id="shock-phenotype">
+          <option value="Not specified" selected>Not specified</option>
+          <option value="AMI-Cardiogenic Shock">AMI-Cardiogenic Shock</option>
+          <option value="Acute Myocarditis">Acute Myocarditis</option>
+          <option value="ADHF / Cardiomyopathy">ADHF / Cardiomyopathy</option>
+          <option value="Post-Cardiotomy Shock">Post-Cardiotomy Shock</option>
+          <option value="Massive PE">Massive PE</option>
+          <option value="Refractory Cardiac Arrest (eCPR)">Refractory Cardiac Arrest (eCPR)</option>
+          <option value="Cardiotoxic Drug Overdose">Cardiotoxic Drug Overdose</option>
+          <option value="Septic Cardiomyopathy / Mixed Shock">Septic Cardiomyopathy / Mixed Shock</option>
+          <option value="Pure Vasodilatory / Septic Shock (non-cardiogenic)">Pure Vasodilatory / Septic Shock (non-cardiogenic)</option>
+          <option value="Isolated Respiratory Failure (VV-ECMO)">Isolated Respiratory Failure (VV-ECMO)</option>
+        </select>
+      </div>
+      <div>
+        <label for="scai-stage">SCAI Shock Stage</label>
+        <select id="scai-stage">
+          <option value="Unassigned" selected>Unassigned</option>
+          <option value="Stage C (Classic)">Stage C (Classic)</option>
+          <option value="Stage D (Deteriorating)">Stage D (Deteriorating)</option>
+          <option value="Stage E (Extremis)">Stage E (Extremis)</option>
+        </select>
+      </div>
+      <div>
+        <label for="current-mcs">Current Mechanical Support</label>
+        <select id="current-mcs">
+          <option value="None" selected>None</option>
+          <option value="IABP">IABP</option>
+          <option value="Impella">Impella</option>
+          <option value="VA-ECMO">VA-ECMO</option>
+        </select>
+      </div>
+      <div>
+        <label for="ecmo-map">MAP (mmHg)</label>
+        <input id="ecmo-map" type="number" min="0" step="any" value="" placeholder="e.g. 58" inputmode="decimal">
+      </div>
+      <div>
+        <label for="ecmo-lactate">Arterial Lactate (mmol/L)</label>
+        <input id="ecmo-lactate" type="number" min="0" step="any" value="" placeholder="e.g. 4.8" inputmode="decimal">
+      </div>
+      <div>
+        <label for="lactate-trend">Lactate Trajectory</label>
+        <select id="lactate-trend">
+          <option value="Not checked" selected>Not checked</option>
+          <option value="Rising">Rising</option>
+          <option value="Stable">Stable (persistent)</option>
+          <option value="Clearing">Clearing</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="phenotype-warning" class="alert-box alert-danger hidden" style="margin-top:10px"></div>
+
+    <div style="margin-top:12px">
+      <label for="echo-note">Bedside Echocardiography / Anatomy Summary</label>
+      <input id="echo-note" type="text" maxlength="160" placeholder="e.g. LVEF 15%, RV severely dilated, no severe AR, no tamponade/dissection">
+    </div>
+
+    <div style="margin-top:14px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+        <strong style="font-size:.9rem">ELSO Hypoperfusion / Refractory Shock Criteria</strong>
+        <span id="perfusion-count-badge" class="count-pill">0 / 5 selected</span>
+      </div>
+      <div class="check-grid">
+        <label class="check-item is-perf"><input type="checkbox" id="perf-hypotension" value="SBP < 90 or MAP < 60–65 despite fluids/pressors"><span>SBP &lt; 90 or MAP &lt; 60–65 despite fluids/pressors</span></label>
+        <label class="check-item is-perf"><input type="checkbox" id="perf-lactate" value="Lactate > 2 mmol/L & rising"><span>Lactate &gt; 2 mmol/L &amp; rising</span></label>
+        <label class="check-item is-perf"><input type="checkbox" id="perf-oliguria" value="Oliguria (< 30 mL/hr or < 0.5 mL/kg/hr)"><span>Oliguria (&lt; 30 mL/hr or &lt; 0.5 mL/kg/hr)</span></label>
+        <label class="check-item is-perf"><input type="checkbox" id="perf-svo2" value="ScvO2 / SvO2 < 60%"><span>ScvO₂ / SvO₂ &lt; 60%</span></label>
+        <label class="check-item is-perf"><input type="checkbox" id="perf-neuro" value="Altered mentation / acute end-organ injury"><span>Altered mentation / acute end-organ injury</span></label>
+      </div>
+    </div>
+
+    <div style="margin-top:14px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+        <strong style="font-size:.9rem">Contraindications &amp; Exclusion Screen (Verify Before Activation)</strong>
+        <span id="exclusion-count-badge" class="count-pill">0 flagged</span>
+      </div>
+      <div class="check-grid">
+        <label class="check-item is-excl"><input type="checkbox" id="excl-neuro" value="Irreversible neurological injury / unwitnessed prolonged no-flow arrest"><span>Irreversible neurological injury / unwitnessed prolonged no-flow arrest</span></label>
+        <label class="check-item is-excl"><input type="checkbox" id="excl-bleed" value="Active uncontrolled bleeding or absolute contraindication to anticoagulation"><span>Active uncontrolled bleeding or absolute contraindication to anticoagulation</span></label>
+        <label class="check-item is-excl"><input type="checkbox" id="excl-aorta" value="Acute aortic dissection or severe unrepaired aortic regurgitation"><span>Acute aortic dissection or severe unrepaired aortic regurgitation</span></label>
+        <label class="check-item is-excl"><input type="checkbox" id="excl-futility" value="Terminal malignancy / non-recoverable end-stage organ failure / DNR or GOC limit"><span>Terminal malignancy / non-recoverable end-stage organ failure / DNR or GOC limit</span></label>
+        <label class="check-item is-excl"><input type="checkbox" id="excl-pvd" value="Severe iliofemoral PVD precluding peripheral cannulation"><span>Severe iliofemoral PVD precluding peripheral cannulation</span></label>
+        <label class="check-item is-excl"><input type="checkbox" id="excl-age" value="Advanced biological age / frailty (verify local institutional ECMO/eCPR criteria)"><span>Advanced biological age / frailty (verify local institutional ECMO/eCPR criteria)</span></label>
+      </div>
+    </div>
+
+    <div class="alert-box alert-info" style="margin-top:14px">
+      <strong>Singapore Regional / Mobile ECMO Referral Prep:</strong> Have ready: latest ABG/lactate &amp; renal/liver panel, bedside echo clips (LV/RV function, AR, aortic root), vascular access status, Group &amp; Crossmatch (GXM), and Next-of-Kin (NOK) contact &amp; goals-of-care status for tertiary Shock Team / Mobile ECMO review (e.g., NHCS, NUHCS, or institutional ECMO service).
+    </div>
+  </section>
+
+  <!-- One-click SBAR Output -->
+  <section class="panel" aria-label="SBAR Activation Summary">
+    <div class="panel-title">
+      <span>7. Copyable Shock Team / ECMO Referral SBAR Summary</span>
+    </div>
+    <textarea id="sbar-output" class="sbar-box" readonly aria-label="SBAR activation summary"></textarea>
+    <div class="btn-row">
+      <button type="button" class="btn btn-primary" id="copy-sbar-btn">Copy SBAR Summary</button>
+      <button type="button" class="btn" id="print-btn">Print / Save PDF</button>
+      <span id="copy-status" class="copy-feedback" role="status" aria-live="polite"></span>
+    </div>
+  </section>
+
+  <!-- Formula & Evidence Reference Footer -->
+  <section class="panel" aria-label="Formula and Clinical Evidence">
+    <strong style="font-size:.92rem">Formulas, Conventions &amp; Primary Clinical References</strong>
+    <p class="sub-note" style="margin-top:6px">
+      <strong>Core VIS (Gaies 2010):</strong> VIS = Dopamine + Dobutamine + (100 × Adrenaline) + (100 × Noradrenaline base) + (10 × Milrinone) + (10,000 × Vasopressin in U/kg/min). <em>Note:</em> Noradrenaline (×100) is part of the original Gaies 2010 VIS definition (the older 1995 Wernovsky Inotrope Score omitted it).
+    </p>
+    <p class="sub-note">
+      <strong>Extended Adult VIS (Belletti 2021):</strong> Core VIS + (50 × Levosimendan) + (25 × Olprinone) + (20 × Methylene Blue in mg/kg/hr) + (10 × Phenylephrine) + (10 × Terlipressin in mcg/min) + (0.25 × Angiotensin II in ng/kg/min) + (1 × Enoximone). <em>Note:</em> Olprinone and Enoximone are greyed out because they are not registered in Singapore's HSA Register of Therapeutic Products or National Drug Formulary (NDF).
+    </p>
+    <ul class="refs-list">
+      <li>Gaies MG, et al. <em>Pediatr Crit Care Med</em>. 2010;11(2):234–238. (PMID 19794327 — Original VIS derivation)</li>
+      <li>Belletti A, et al. <em>J Cardiothorac Vasc Anesth</em>. 2021;35(10):3067–3077. (PMID 33069558 — Extended Adult VIS)</li>
+      <li>Wieruszewski PM, Leone M, et al. <em>Crit Care Med</em>. 2024;52(4):521–530. (PMID 38240498 — SCCM/ESICM Norepinephrine base vs. salt formulation standard)</li>
+      <li>Na SJ, et al. <em>Rev Esp Cardiol</em>. 2019;72(1):40–47. (PMID 29463462 — Adult CS VIS quintiles &amp; VIS = 130 medical vs. ECMO mortality crossover)</li>
+      <li>Lorusso R, et al. <em>ASAIO J</em>. 2021;67(8):827–844. (PMID 34339398 — ELSO Interim Adult Cardiac VA-ECMO Guidelines)</li>
+      <li>Hyun J, et al. <em>Circ J</em>. 2022;86(4):687–694. (PMID 34759121 — Pre-ECMO VIS ≥ 32 associated with mortality, AUC 0.60)</li>
+      <li>Thiele H, et al. <em>N Engl J Med</em>. 2023;389:1286–1297. (PMID 37634145 — ECLS-SHOCK RCT)</li>
+      <li>Hu Y, et al. <em>J Thorac Dis</em>. 2024;16(2):1097–1107. (PMID 38505065 — 6h pre-ECMO VISmax &gt; 20 OR 2.64, AUC 0.65)</li>
+      <li>Caruso V, et al. <em>J Cardiothorac Vasc Anesth</em>. 2024;38(3):724–730. (PMID 38182434 — VIS alone should not drive VA-ECMO implantation)</li>
+    </ul>
+    <p class="sub-note" style="margin-top:8px;color:#8b3d13">
+      <strong>Disclaimer:</strong> Clinical decision-support aid only — not a substitute for bedside physician/Shock Team judgment or institutional SOPs. Always confirm smart-pump drug concentrations, weight basis, and noradrenaline base/salt labeling before acting.
+    </p>
+  </section>
+</div>
+
+<script>
+// === VIS_ENGINE_START ===
+const DRUG_DEFS = [
+  {
+    key: 'norepi',
+    label: 'Noradrenaline',
+    group: 'core',
+    coeff: 100,
+    canonUnit: 'mcg/kg/min',
+    canonDecimals: 3,
+    units: ['mcg/kg/min', 'mcg/min', 'mg/hr', 'mL/hr'],
+    defaultUnit: 'mcg/kg/min',
+    amtUnit: 'mg'
+  },
+  {
+    key: 'epi',
+    label: 'Adrenaline',
+    group: 'core',
+    coeff: 100,
+    canonUnit: 'mcg/kg/min',
+    canonDecimals: 3,
+    units: ['mcg/kg/min', 'mcg/min', 'mg/hr', 'mL/hr'],
+    defaultUnit: 'mcg/kg/min',
+    amtUnit: 'mg'
+  },
+  {
+    key: 'vaso',
+    label: 'Vasopressin',
+    group: 'core',
+    coeff: 10000,
+    canonUnit: 'U/kg/min',
+    canonDecimals: 6,
+    units: ['U/hr', 'U/min', 'U/kg/min', 'mL/hr'],
+    defaultUnit: 'U/hr',
+    amtUnit: 'U'
+  },
+  {
+    key: 'dobutamine',
+    label: 'Dobutamine',
+    group: 'core',
+    coeff: 1,
+    canonUnit: 'mcg/kg/min',
+    canonDecimals: 3,
+    units: ['mcg/kg/min', 'mcg/min', 'mg/hr', 'mL/hr'],
+    defaultUnit: 'mcg/kg/min',
+    amtUnit: 'mg'
+  },
+  {
+    key: 'milrinone',
+    label: 'Milrinone',
+    group: 'core',
+    coeff: 10,
+    canonUnit: 'mcg/kg/min',
+    canonDecimals: 3,
+    units: ['mcg/kg/min', 'mcg/min', 'mg/hr', 'mL/hr'],
+    defaultUnit: 'mcg/kg/min',
+    amtUnit: 'mg'
+  },
+  {
+    key: 'dopamine',
+    label: 'Dopamine',
+    group: 'core',
+    coeff: 1,
+    canonUnit: 'mcg/kg/min',
+    canonDecimals: 3,
+    units: ['mcg/kg/min', 'mcg/min', 'mg/hr', 'mL/hr'],
+    defaultUnit: 'mcg/kg/min',
+    amtUnit: 'mg'
+  },
+  {
+    key: 'phenylephrine',
+    label: 'Phenylephrine',
+    group: 'extended',
+    coeff: 10,
+    canonUnit: 'mcg/kg/min',
+    canonDecimals: 3,
+    units: ['mcg/kg/min', 'mcg/min', 'mg/hr', 'mL/hr'],
+    defaultUnit: 'mcg/kg/min',
+    amtUnit: 'mg'
+  },
+  {
+    key: 'levosimendan',
+    label: 'Levosimendan',
+    group: 'extended',
+    coeff: 50,
+    canonUnit: 'mcg/kg/min',
+    canonDecimals: 3,
+    units: ['mcg/kg/min', 'mcg/min', 'mg/hr', 'mL/hr'],
+    defaultUnit: 'mcg/kg/min',
+    amtUnit: 'mg'
+  },
+  {
+    key: 'methyleneBlue',
+    label: 'Methylene Blue',
+    group: 'extended',
+    coeff: 20,
+    canonUnit: 'mg/kg/hr',
+    canonDecimals: 3,
+    units: ['mg/kg/hr', 'mg/hr'],
+    defaultUnit: 'mg/kg/hr',
+    amtUnit: 'mg'
+  },
+  {
+    key: 'angiotensin2',
+    label: 'Angiotensin II',
+    group: 'extended',
+    coeff: 0.25,
+    canonUnit: 'ng/kg/min',
+    canonDecimals: 1,
+    units: ['ng/kg/min', 'mcg/kg/min'],
+    defaultUnit: 'ng/kg/min',
+    amtUnit: 'mg'
+  },
+  {
+    key: 'terlipressin',
+    label: 'Terlipressin',
+    group: 'extended',
+    coeff: 10,
+    canonUnit: 'mcg/min',
+    canonDecimals: 3,
+    units: ['mcg/min', 'mcg/hr', 'mg/hr'],
+    defaultUnit: 'mcg/min',
+    amtUnit: 'mg'
+  },
+  {
+    key: 'olprinone',
+    label: 'Olprinone',
+    group: 'extended',
+    coeff: 25,
+    canonUnit: 'mcg/kg/min',
+    canonDecimals: 3,
+    units: ['mcg/kg/min', 'mcg/min', 'mg/hr', 'mL/hr'],
+    defaultUnit: 'mcg/kg/min',
+    amtUnit: 'mg',
+    nonSgFormulary: true
+  },
+  {
+    key: 'enoximone',
+    label: 'Enoximone',
+    group: 'extended',
+    coeff: 1,
+    canonUnit: 'mcg/kg/min',
+    canonDecimals: 3,
+    units: ['mcg/kg/min', 'mcg/min', 'mg/hr', 'mL/hr'],
+    defaultUnit: 'mcg/kg/min',
+    amtUnit: 'mg',
+    nonSgFormulary: true
+  }
+];
+
+const DRUG_DEF_MAP = Object.fromEntries(DRUG_DEFS.map(d => [d.key, d]));
+
+const VIS_TIERS = [
+  { rank: 0, code: 'none', css: 'tier-neutral', label: 'No Active Support', summary: 'No active infusions entered' },
+  { rank: 1, code: 'low', css: 'tier-low', label: 'Low Support', summary: 'Low support (Na 2019 Q1: 8.2% CS hospital mortality)' },
+  { rank: 2, code: 'moderate', css: 'tier-moderate', label: 'Moderate Support', summary: 'Moderate support (Na 2019 Q2: 14.1%; trend VIS & lactate closely)' },
+  { rank: 3, code: 'high', css: 'tier-high', label: 'Early Shock Team Alert', summary: 'High / Escalating support — Early Shock Team Alert (Hu 2024: 6h pre-ECMO VISmax > 20 OR 2.64 for mortality)' },
+  { rank: 4, code: 'severe', css: 'tier-severe', label: 'Urgent Shock / VA-ECMO Eval', summary: 'Severe support — Urgent Shock / VA-ECMO Team Evaluation (Hyun 2022: pre-ECMO VIS ≥ 32 HR 2.46 for death; Na 2019 Q4 39–85: 32.0% mortality)' },
+  { rank: 5, code: 'extreme', css: 'tier-extreme', label: 'Refractory Shock Range', summary: 'Extreme support — Refractory Shock Range (Na 2019: VIS > 85 → 65.7% mortality; urgent VA-ECMO vs goals-of-care decision)' },
+  { rank: 6, code: 'critical', css: 'tier-critical', label: 'Refractory / Crossover Burden', summary: 'Extreme / Refractory Burden (VIS ≥ 130: Na 2019 medical vs ECMO mortality crossover; escalating catecholamines have diminishing benefit)' }
+];
+
+const VIS_ENGINE = {
+  DRUG_DEFS,
+  DRUG_DEF_MAP,
+
+  parseNumberField(raw, badInput = false) {
+    if (badInput) return { empty: false, valid: false, value: NaN };
+    if (raw === null || raw === undefined) return { empty: true, valid: true, value: 0 };
+    const s = String(raw).trim();
+    if (s === '') return { empty: true, valid: true, value: 0 };
+    const num = Number(s);
+    if (!Number.isFinite(num)) return { empty: false, valid: false, value: NaN };
+    return { empty: false, valid: true, value: num };
+  },
+
+  unitNeedsWeight(drugKey, unit) {
+    if (drugKey === 'vaso') return unit === 'U/hr' || unit === 'U/min' || unit === 'mL/hr';
+    if (drugKey === 'methyleneBlue') return unit === 'mg/hr';
+    if (drugKey === 'angiotensin2') return false;
+    if (drugKey === 'terlipressin') return false;
+    return unit === 'mcg/min' || unit === 'mg/hr' || unit === 'mL/hr';
+  },
+
+  unitNeedsDilution(unit) {
+    return unit === 'mL/hr';
+  },
+
+  getTier(score) {
+    if (score === null || score === undefined || !Number.isFinite(score)) return null;
+    if (score <= 0) return VIS_TIERS[0];
+    if (score <= 10) return VIS_TIERS[1];
+    if (score <= 20) return VIS_TIERS[2];
+    if (score < 32) return VIS_TIERS[3];
+    if (score <= 85) return VIS_TIERS[4];
+    if (score < 130) return VIS_TIERS[5];
+    return VIS_TIERS[6];
+  },
+
+  convertDrug(def, entry, weightKg, hasValidWeight, norepiSalt) {
+    const unit = (entry && entry.unit) || def.defaultUnit;
+    const parsedDose = this.parseNumberField(entry ? entry.dose : '', entry ? entry.doseBadInput : false);
+    const parsedAmt = this.parseNumberField(entry ? entry.concAmt : '', entry ? entry.amtBadInput : false);
+    const parsedVol = this.parseNumberField(entry ? entry.concVol : '', entry ? entry.volBadInput : false);
+
+    if (!parsedDose.valid || parsedDose.value < 0) {
+      return {
+        key: def.key,
+        label: def.label,
+        group: def.group,
+        unit,
+        raw: parsedDose.value,
+        active: true,
+        status: 'invalid',
+        canon: null,
+        effectiveCanon: null,
+        contribution: null
+      };
+    }
+
+    const raw = parsedDose.value;
+    if (raw === 0) {
+      return {
+        key: def.key,
+        label: def.label,
+        group: def.group,
+        unit,
+        raw: 0,
+        active: false,
+        status: 'ok',
+        canon: 0,
+        effectiveCanon: 0,
+        contribution: 0
+      };
+    }
+
+    const needsW = this.unitNeedsWeight(def.key, unit);
+    const needsD = this.unitNeedsDilution(unit);
+    const hasValidDilution =
+      !parsedAmt.empty && parsedAmt.valid && parsedAmt.value > 0 &&
+      !parsedVol.empty && parsedVol.valid && parsedVol.value > 0;
+
+    if (needsW && !hasValidWeight) {
+      return {
+        key: def.key,
+        label: def.label,
+        group: def.group,
+        unit,
+        raw,
+        active: true,
+        status: 'needs_weight',
+        missingWeight: true,
+        missingDilution: needsD && !hasValidDilution,
+        canon: null,
+        effectiveCanon: null,
+        contribution: null
+      };
+    }
+
+    if (needsD && !hasValidDilution) {
+      return {
+        key: def.key,
+        label: def.label,
+        group: def.group,
+        unit,
+        raw,
+        active: true,
+        status: 'needs_dilution',
+        missingWeight: false,
+        missingDilution: true,
+        canon: null,
+        effectiveCanon: null,
+        contribution: null
+      };
+    }
+
+    let canon = 0;
+    const concAmt = parsedAmt.value;
+    const concVol = parsedVol.value;
+
+    if (def.key === 'vaso') {
+      if (unit === 'U/kg/min') canon = raw;
+      else if (unit === 'U/hr') canon = raw / (60 * weightKg);
+      else if (unit === 'U/min') canon = raw / weightKg;
+      else if (unit === 'mL/hr') canon = (raw * concAmt) / (concVol * 60 * weightKg);
+    } else if (def.key === 'methyleneBlue') {
+      if (unit === 'mg/kg/hr') canon = raw;
+      else if (unit === 'mg/hr') canon = raw / weightKg;
+    } else if (def.key === 'angiotensin2') {
+      if (unit === 'ng/kg/min') canon = raw;
+      else if (unit === 'mcg/kg/min') canon = raw * 1000;
+    } else if (def.key === 'terlipressin') {
+      if (unit === 'mcg/min') canon = raw;
+      else if (unit === 'mcg/hr') canon = raw / 60;
+      else if (unit === 'mg/hr') canon = (raw * 1000) / 60;
+    } else {
+      if (unit === 'mcg/kg/min') canon = raw;
+      else if (unit === 'mcg/min') canon = raw / weightKg;
+      else if (unit === 'mg/hr') canon = (raw * 1000) / (60 * weightKg);
+      else if (unit === 'mL/hr') canon = (raw * concAmt * 1000) / (concVol * 60 * weightKg);
+    }
+
+    const saltFactor = def.key === 'norepi' && norepiSalt === 'tartrate' ? 0.5 : 1;
+    const effectiveCanon = canon * saltFactor;
+    const contribution = def.coeff * effectiveCanon;
+
+    return {
+      key: def.key,
+      label: def.label,
+      group: def.group,
+      unit,
+      raw,
+      concAmt: needsD ? concAmt : null,
+      concVol: needsD ? concVol : null,
+      saltFactor,
+      active: true,
+      status: 'ok',
+      canon,
+      effectiveCanon,
+      contribution
+    };
+  },
+
+  evaluate(state) {
+    const parsedWeight = this.parseNumberField(state.weight, state.weightBadInput);
+    const weightProvided = !parsedWeight.empty;
+    const weightInvalid = weightProvided && (!parsedWeight.valid || parsedWeight.value <= 0);
+    const hasValidWeight = weightProvided && parsedWeight.valid && parsedWeight.value > 0;
+    const weightKg = hasValidWeight ? parsedWeight.value : null;
+    const norepiSalt = state.norepiSalt === 'tartrate' ? 'tartrate' : 'base';
+
+    const drugs = {};
+    const blockingErrors = [];
+    const plausibilityWarnings = [];
+
+    let needsWeightAnywhere = false;
+    let coreValid = true;
+    let extendedValid = true;
+    let coreTotal = 0;
+    let extendedDelta = 0;
+    let extendedActiveCount = 0;
+
+    for (const def of DRUG_DEFS) {
+      const entry = (state.drugs && state.drugs[def.key]) || {};
+      const res = this.convertDrug(def, entry, weightKg, hasValidWeight, norepiSalt);
+      drugs[def.key] = res;
+
+      if (res.group === 'extended' && res.active) {
+        extendedActiveCount += 1;
+      }
+
+      if (res.status !== 'ok') {
+        if (res.group === 'core') coreValid = false;
+        else extendedValid = false;
+
+        if (res.status === 'invalid') {
+          blockingErrors.push({
+            field: def.key,
+            code: 'invalid',
+            message: `${def.label}: dose must be a non-negative number.`
+          });
+        } else if (res.status === 'needs_weight') {
+          needsWeightAnywhere = true;
+          blockingErrors.push({
+            field: def.key,
+            code: 'needs_weight',
+            message: `${def.label} (${res.unit}) requires a valid patient weight (kg).`
+          });
+          if (res.missingDilution) {
+            blockingErrors.push({
+              field: def.key,
+              code: 'needs_dilution',
+              message: `${def.label} (mL/hr) also requires both drug amount and total volume (mL).`
+            });
+          }
+        } else if (res.status === 'needs_dilution') {
+          blockingErrors.push({
+            field: def.key,
+            code: 'needs_dilution',
+            message: `${def.label} (mL/hr) requires both positive drug amount and total volume (mL).`
+          });
+        }
+      } else {
+        if (res.group === 'core') coreTotal += res.contribution;
+        else extendedDelta += res.contribution;
+      }
+
+      // Plausibility & unit-mismatch checks (run even if weight is absent for raw unit traps)
+      if (res.active && res.status !== 'invalid') {
+        if (def.key === 'vaso') {
+          let dangerTriggered = false;
+          if (res.unit === 'U/hr' && res.raw <= 0.1) {
+            dangerTriggered = true;
+            plausibilityWarnings.push({
+              level: 'danger',
+              field: 'vaso',
+              message: 'Vasopressin ≤ 0.1 U/hr — did you mean U/min? (0.03 U/min = 1.8 U/hr; unit error undercounts 60×).'
+            });
+          } else if (res.unit === 'U/min' && res.raw > 0.1) {
+            dangerTriggered = true;
+            plausibilityWarnings.push({
+              level: 'danger',
+              field: 'vaso',
+              message: 'Vasopressin > 0.1 U/min — did you mean U/hr? Typical adult range is 0.01–0.04 U/min (0.6–2.4 U/hr).'
+            });
+          } else if (res.unit === 'U/kg/min' && res.raw > 0.002) {
+            dangerTriggered = true;
+            plausibilityWarnings.push({
+              level: 'danger',
+              field: 'vaso',
+              message: 'Vasopressin > 0.002 U/kg/min — did you mean U/min or U/hr?'
+            });
+          }
+          if (!dangerTriggered && res.canon !== null && res.canon > 0.001) {
+            plausibilityWarnings.push({
+              level: 'warn',
+              field: 'vaso',
+              message: 'High vasopressin equivalent (> 0.07 U/min in 70 kg) — verify rate.'
+            });
+          }
+        } else if (def.key === 'norepi' || def.key === 'epi') {
+          let dangerTriggered = false;
+          if (res.unit === 'mcg/kg/min' && res.raw > 2.0) {
+            dangerTriggered = true;
+            plausibilityWarnings.push({
+              level: 'danger',
+              field: def.key,
+              message: `${def.label} > 2.0 mcg/kg/min — confirm this is not mcg/min or mL/hr!`
+            });
+          } else if (res.unit === 'mcg/min' && res.raw < 0.5) {
+            plausibilityWarnings.push({
+              level: 'warn',
+              field: def.key,
+              message: `${def.label} < 0.5 mcg/min — did you mean mcg/kg/min?`
+            });
+          }
+          if (!dangerTriggered && res.effectiveCanon !== null && res.effectiveCanon > 1.0) {
+            plausibilityWarnings.push({
+              level: 'warn',
+              field: def.key,
+              message: `Very high ${def.label} dose (> 1.0 mcg/kg/min base equiv.) — double-check pump rate & formulation.`
+            });
+          }
+        } else if (def.key === 'dopamine' || def.key === 'dobutamine') {
+          if (res.canon !== null && res.canon > 25) {
+            plausibilityWarnings.push({
+              level: 'warn',
+              field: def.key,
+              message: `${def.label} > 25 mcg/kg/min — verify rate and units.`
+            });
+          }
+        } else if (def.key === 'milrinone') {
+          if (res.canon !== null && res.canon > 1.0) {
+            plausibilityWarnings.push({
+              level: 'warn',
+              field: def.key,
+              message: 'Milrinone > 1.0 mcg/kg/min — verify rate and renal dosing/units.'
+            });
+          }
+        } else if (def.key === 'phenylephrine') {
+          if (res.canon !== null && res.canon > 6.0) {
+            plausibilityWarnings.push({
+              level: 'warn',
+              field: def.key,
+              message: 'Phenylephrine > 6.0 mcg/kg/min — verify rate and units.'
+            });
+          }
+        } else if (def.key === 'levosimendan') {
+          if (res.canon !== null && res.canon > 0.4) {
+            plausibilityWarnings.push({
+              level: 'warn',
+              field: def.key,
+              message: 'Levosimendan > 0.4 mcg/kg/min — verify rate and units.'
+            });
+          }
+        } else if (def.key === 'angiotensin2') {
+          if (res.canon !== null && res.canon > 80) {
+            plausibilityWarnings.push({
+              level: 'warn',
+              field: def.key,
+              message: 'Angiotensin II > 80 ng/kg/min — verify rate and units.'
+            });
+          }
+        } else if (def.key === 'methyleneBlue') {
+          if (res.canon !== null && res.canon > 2.0) {
+            plausibilityWarnings.push({
+              level: 'warn',
+              field: def.key,
+              message: 'Methylene Blue > 2.0 mg/kg/hr — verify rate and units.'
+            });
+          }
+        } else if (def.key === 'terlipressin') {
+          if (res.canon !== null && res.canon > 5.0) {
+            plausibilityWarnings.push({
+              level: 'warn',
+              field: def.key,
+              message: 'Terlipressin > 5.0 mcg/min — verify rate and units.'
+            });
+          }
+        } else if (def.key === 'olprinone') {
+          if (res.canon !== null && res.canon > 0.5) {
+            plausibilityWarnings.push({
+              level: 'warn',
+              field: def.key,
+              message: 'Olprinone > 0.5 mcg/kg/min (typical 0.1–0.3 mcg/kg/min) — verify rate and units.'
+            });
+          }
+        } else if (def.key === 'enoximone') {
+          if (res.canon !== null && res.canon > 20) {
+            plausibilityWarnings.push({
+              level: 'warn',
+              field: def.key,
+              message: 'Enoximone > 20 mcg/kg/min (typical 5–20 mcg/kg/min) — verify rate and units.'
+            });
+          }
+        }
+      }
+    }
+
+    if (weightInvalid) {
+      blockingErrors.unshift({
+        field: 'weight',
+        code: 'invalid_weight',
+        message: 'Patient weight must be a positive number in kg.'
+      });
+    } else if (hasValidWeight) {
+      if (weightKg < 30) {
+        plausibilityWarnings.unshift({
+          level: 'warn',
+          field: 'weight',
+          message: 'Weight < 30 kg — verify adult kg (this tool applies adult shock/ECMO thresholds).'
+        });
+      } else if (weightKg > 200) {
+        plausibilityWarnings.unshift({
+          level: 'warn',
+          field: 'weight',
+          message: 'Weight > 200 kg — verify kg vs lbs and confirm local ABW vs AdjBW/IBW convention.'
+        });
+      }
+    }
+
+    const coreScore = coreValid ? coreTotal : null;
+    const extendedTotal = coreValid && extendedValid ? coreTotal + extendedDelta : null;
+    const coreTier = this.getTier(coreScore);
+    const extendedTier = this.getTier(extendedTotal);
+    const extendedCrossesHigherTier = Boolean(
+      coreTier && extendedTier && extendedActiveCount > 0 && extendedTier.rank > coreTier.rank
+    );
+
+    return {
+      weightKg,
+      weightProvided,
+      weightInvalid,
+      needsWeightAnywhere,
+      norepiSalt,
+      drugs,
+      coreTotal: coreScore,
+      extendedDelta: extendedValid ? extendedDelta : null,
+      extendedTotal,
+      extendedActiveCount,
+      coreTier,
+      extendedTier,
+      extendedCrossesHigherTier,
+      blockingErrors,
+      plausibilityWarnings
+    };
+  },
+
+  computeLogStats(log) {
+    if (!Array.isArray(log) || log.length === 0) {
+      return { count: 0, visMax: null, extMax: null, trendText: '—', delta: null };
+    }
+    let visMax = -Infinity;
+    let extMax = -Infinity;
+    for (const item of log) {
+      if (Number.isFinite(item.coreVis) && item.coreVis > visMax) visMax = item.coreVis;
+      if (Number.isFinite(item.extendedVis) && item.extendedVis > extMax) extMax = item.extendedVis;
+    }
+    let trendText = 'Baseline (1 entry)';
+    let delta = null;
+    if (log.length >= 2) {
+      const prev = log[log.length - 2].coreVis;
+      const curr = log[log.length - 1].coreVis;
+      if (Number.isFinite(prev) && Number.isFinite(curr)) {
+        delta = curr - prev;
+        if (delta > 0.5) trendText = `↑ Rising (+${delta.toFixed(2)})`;
+        else if (delta < -0.5) trendText = `↓ Falling (${delta.toFixed(2)})`;
+        else trendText = `→ Stable (${delta >= 0 ? '+' : ''}${delta.toFixed(2)})`;
+      }
+    }
+    return {
+      count: log.length,
+      visMax: Number.isFinite(visMax) ? visMax : null,
+      extMax: Number.isFinite(extMax) ? extMax : null,
+      trendText,
+      delta
+    };
+  },
+
+  formatSBAR(state, evalResult, logStats) {
+    const nowStr = state.timestampLabel || new Date().toLocaleString('en-SG', { hour12: false });
+    const site = (state.siteLabel || '').trim() || 'Unspecified unit/site';
+    const wtStr = evalResult.weightKg !== null
+      ? `${evalResult.weightKg} kg (${state.weightBasis || 'ABW'})`
+      : 'Not entered';
+    const saltLabel = evalResult.norepiSalt === 'tartrate'
+      ? 'Tartrate/Bitartrate salt (converted ×0.5 to base equiv.)'
+      : 'Base (1× SG standard)';
+
+    const activeCore = [];
+    const activeExt = [];
+    for (const def of DRUG_DEFS) {
+      const d = evalResult.drugs[def.key];
+      if (!d || !d.active) continue;
+      let line = `${def.label}: ${d.raw} ${d.unit}`;
+      if (d.unit === 'mL/hr' && d.concAmt && d.concVol) {
+        line += ` [${d.concAmt}${def.amtUnit}/${d.concVol}mL]`;
+      }
+      if (d.status === 'ok') {
+        const eff = def.key === 'norepi' && d.saltFactor === 0.5
+          ? `${d.effectiveCanon.toFixed(def.canonDecimals)} ${def.canonUnit} base`
+          : `${d.canon.toFixed(def.canonDecimals)} ${def.canonUnit}`;
+        line += ` (= ${eff} → ${d.contribution.toFixed(2)} pts)`;
+      } else {
+        line += ` [${d.status.toUpperCase()}]`;
+      }
+      if (def.nonSgFormulary) {
+        line += ' [Non-SG HSA/NDF]';
+      }
+      if (def.group === 'core') activeCore.push(line);
+      else activeExt.push(line);
+    }
+
+    const coreStr = evalResult.coreTotal !== null ? evalResult.coreTotal.toFixed(2) : 'INCOMPLETE (check errors/weight/dilution)';
+    const extStr = evalResult.extendedTotal !== null ? evalResult.extendedTotal.toFixed(2) : 'INCOMPLETE';
+    const tierLabel = evalResult.coreTier ? `${evalResult.coreTier.label} — ${evalResult.coreTier.summary}` : 'Pending valid Core VIS';
+    const visMaxStr = logStats && logStats.visMax !== null
+      ? `${logStats.visMax.toFixed(2)} across ${logStats.count} snapshot(s) [${logStats.trendText}]`
+      : 'None recorded';
+
+    const ecmo = state.ecmo || {};
+    const mapStr = (ecmo.map || '').toString().trim() || 'Not entered';
+    const lacStr = (ecmo.lactate || '').toString().trim()
+      ? `${ecmo.lactate} mmol/L (${ecmo.lactateTrend || 'Not checked'})`
+      : 'Not entered';
+    const perfList = Array.isArray(ecmo.perfusionChecked) && ecmo.perfusionChecked.length > 0
+      ? ecmo.perfusionChecked.join('; ')
+      : 'None selected';
+    const exclList = Array.isArray(ecmo.exclusionsChecked) && ecmo.exclusionsChecked.length > 0
+      ? ecmo.exclusionsChecked.join('; ')
+      : 'None flagged';
+
+    const lines = [
+      `SHOCK TEAM / VA-ECMO REFERRAL SBAR (PDPA-SAFE — NO PATIENT IDENTIFIERS)`,
+      `Generated: ${nowStr} | Site/Unit: ${site}`,
+      ``,
+      `S — SITUATION`,
+      `• Phenotype: ${ecmo.phenotype || 'Not specified'} | SCAI Stage: ${ecmo.scaiStage || 'Unassigned'} | Current MCS: ${ecmo.currentMcs || 'None'}`,
+      `• Core VIS (Gaies 2010): ${coreStr}${evalResult.extendedActiveCount > 0 ? ` | Extended VIS (Belletti 2021): ${extStr}` : ''}`,
+      `• VIS-max (session): ${visMaxStr}`,
+      `• VIS Band: ${tierLabel}`,
+      ``,
+      `B — BACKGROUND & ACTIVE VASOACTIVE INFUSIONS`,
+      `• Weight: ${wtStr} | Noradrenaline convention: ${saltLabel}`,
+      `• Core agents: ${activeCore.length > 0 ? activeCore.join('; ') : 'None'}`,
+      ...(activeExt.length > 0 ? [`• Extended agents: ${activeExt.join('; ')}`] : []),
+      ``,
+      `A — ASSESSMENT (HEMODYNAMICS, PERFUSION & EXCLUSIONS)`,
+      `• MAP: ${mapStr} mmHg | Lactate: ${lacStr}`,
+      `• Bedside Echo: ${(ecmo.echoNote || '').trim() || 'Not entered'}`,
+      `• ELSO Hypoperfusion Criteria (${(ecmo.perfusionChecked || []).length}/5): ${perfList}`,
+      `• Contraindications / Exclusions Flagged (${(ecmo.exclusionsChecked || []).length}): ${exclList}`,
+      ...(evalResult.blockingErrors.length > 0
+        ? [`• INPUT ERRORS: ${evalResult.blockingErrors.map(e => e.message).join(' | ')}`]
+        : []),
+      ...(evalResult.plausibilityWarnings.length > 0
+        ? [`• DOSE/UNIT ALERTS: ${evalResult.plausibilityWarnings.map(w => w.message).join(' | ')}`]
+        : []),
+      ``,
+      `R — RECOMMENDATION / REQUEST`,
+      `• Request urgent multidisciplinary Shock Team / ECMO evaluation for candidacy, cannulation timing, or retrieval coordination.`,
+      `• Note: VIS quantifies pharmacological burden only; confirm clinical shock phenotype, echo & contraindications.`
+    ];
+    return lines.join('\n');
+  }
+};
+// === VIS_ENGINE_END ===
+
+(function initApp() {
+  const SESSION_KEY = 'sg_vis_serial_log_v1';
+  let serialLog = [];
+  try {
+    const raw = window.sessionStorage.getItem(SESSION_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) serialLog = parsed;
+    }
+  } catch (e) {
+    serialLog = [];
+  }
+
+  function saveLog() {
+    try {
+      window.sessionStorage.setItem(SESSION_KEY, JSON.stringify(serialLog));
+    } catch (e) {
+      // Ignore storage failures in restricted file:// contexts
+    }
+  }
+
+  const PERF_IDS = ['perf-hypotension', 'perf-lactate', 'perf-oliguria', 'perf-svo2', 'perf-neuro'];
+  const EXCL_IDS = ['excl-neuro', 'excl-bleed', 'excl-aorta', 'excl-futility', 'excl-pvd', 'excl-age'];
+  const DILUTION_DRUGS = new Set(['norepi', 'epi', 'vaso', 'dobutamine', 'milrinone', 'dopamine', 'phenylephrine', 'levosimendan', 'olprinone', 'enoximone']);
+
+  const elWeight = document.getElementById('weight');
+  const elWeightWrap = document.getElementById('weight-wrap');
+  const elWeightError = document.getElementById('weight-error');
+  const elWeightBasis = document.getElementById('weight-basis');
+  const elNorepiSalt = document.getElementById('norepi-salt');
+  const elNorepiSaltPill = document.getElementById('norepi-salt-pill');
+  const elSiteLabel = document.getElementById('site-label');
+  const elBlockingAlerts = document.getElementById('blocking-alerts');
+  const elPlausibilityAlerts = document.getElementById('plausibility-alerts');
+
+  const elExtendedDetails = document.getElementById('extended-details');
+  const elExtendedActiveBadge = document.getElementById('extended-active-badge');
+  const elExtendedBreakdownDivider = document.getElementById('extended-breakdown-divider');
+  const elExtendedBreakdownSub = document.getElementById('extended-breakdown-sub');
+  const elContribExtSub = document.getElementById('contrib-ext-sub');
+
+  const elCoreScoreBox = document.getElementById('core-score-box');
+  const elCoreScore = document.getElementById('core-score');
+  const elCoreTierBadge = document.getElementById('core-tier-badge');
+  const elCoreTierDesc = document.getElementById('core-tier-desc');
+  const elExtendedScoreBox = document.getElementById('extended-score-box');
+  const elExtendedScore = document.getElementById('extended-score');
+  const elExtendedDeltaNote = document.getElementById('extended-delta-note');
+  const elExtendedTierAlert = document.getElementById('extended-tier-alert');
+  const elVisGuardrailCallout = document.getElementById('vis-guardrail-callout');
+
+  const elSnapCount = document.getElementById('snap-count');
+  const elSnapVisMax = document.getElementById('snap-vis-max');
+  const elSnapTrend = document.getElementById('snap-trend');
+  const elSnapStatus = document.getElementById('snap-status');
+  const elLogTbody = document.getElementById('log-tbody');
+  const elLogEmptyRow = document.getElementById('log-empty-row');
+
+  const elShockPhenotype = document.getElementById('shock-phenotype');
+  const elPhenotypeWarning = document.getElementById('phenotype-warning');
+  const elScaiStage = document.getElementById('scai-stage');
+  const elCurrentMcs = document.getElementById('current-mcs');
+  const elEcmoMap = document.getElementById('ecmo-map');
+  const elEcmoLactate = document.getElementById('ecmo-lactate');
+  const elLactateTrend = document.getElementById('lactate-trend');
+  const elEchoNote = document.getElementById('echo-note');
+  const elPerfBadge = document.getElementById('perfusion-count-badge');
+  const elExclBadge = document.getElementById('exclusion-count-badge');
+
+  const elSbarOutput = document.getElementById('sbar-output');
+  const elCopyBtn = document.getElementById('copy-sbar-btn');
+  const elCopyStatus = document.getElementById('copy-status');
+  const elPrintBtn = document.getElementById('print-btn');
+  const elResetDosesBtn = document.getElementById('reset-doses-btn');
+  const elResetAllBtn = document.getElementById('reset-all-btn');
+  const elRecordSnapBtn = document.getElementById('record-snapshot-btn');
+  const elClearLogBtn = document.getElementById('clear-log-btn');
+
+  // Verify DOM presence of breakdown elements cleanly referenced per drug
+  const drugEls = {};
+  for (const def of DRUG_DEFS) {
+    drugEls[def.key] = {
+      card: document.getElementById('card-' + def.key),
+      dose: document.getElementById('dose-' + def.key),
+      unit: document.getElementById('unit-' + def.key),
+      dilRow: DILUTION_DRUGS.has(def.key) ? document.getElementById('dil-row-' + def.key) : null,
+      amt: DILUTION_DRUGS.has(def.key) ? document.getElementById('amt-' + def.key) : null,
+      vol: DILUTION_DRUGS.has(def.key) ? document.getElementById('vol-' + def.key) : null,
+      hint: document.getElementById('hint-' + def.key),
+      row: document.getElementById('row-' + def.key),
+      canon: document.getElementById('canon-' + def.key),
+      contrib: document.getElementById('contrib-' + def.key)
+    };
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function readState() {
+    const drugs = {};
+    for (const def of DRUG_DEFS) {
+      const refs = drugEls[def.key];
+      drugs[def.key] = {
+        dose: refs.dose.value,
+        doseBadInput: Boolean(refs.dose.validity && refs.dose.validity.badInput),
+        unit: refs.unit.value,
+        concAmt: refs.amt ? refs.amt.value : '',
+        amtBadInput: Boolean(refs.amt && refs.amt.validity && refs.amt.validity.badInput),
+        concVol: refs.vol ? refs.vol.value : '',
+        volBadInput: Boolean(refs.vol && refs.vol.validity && refs.vol.validity.badInput)
+      };
+    }
+
+    const perfusionChecked = PERF_IDS
+      .map(id => document.getElementById(id))
+      .filter(cb => cb && cb.checked)
+      .map(cb => cb.value);
+
+    const exclusionsChecked = EXCL_IDS
+      .map(id => document.getElementById(id))
+      .filter(cb => cb && cb.checked)
+      .map(cb => cb.value);
+
+    return {
+      weight: elWeight.value,
+      weightBadInput: Boolean(elWeight.validity && elWeight.validity.badInput),
+      weightBasis: elWeightBasis.value,
+      norepiSalt: elNorepiSalt.value,
+      siteLabel: elSiteLabel.value,
+      drugs,
+      ecmo: {
+        phenotype: elShockPhenotype.value,
+        scaiStage: elScaiStage.value,
+        currentMcs: elCurrentMcs.value,
+        map: elEcmoMap.value,
+        lactate: elEcmoLactate.value,
+        lactateTrend: elLactateTrend.value,
+        echoNote: elEchoNote.value,
+        perfusionChecked,
+        exclusionsChecked
+      }
+    };
+  }
+
+  function renderAlerts(container, items, defaultClass) {
+    if (!items || items.length === 0) {
+      container.classList.add('hidden');
+      container.innerHTML = '';
+      return;
+    }
+    container.classList.remove('hidden');
+    container.innerHTML = items.map(item => {
+      const cls = item.level === 'danger' || defaultClass === 'alert-danger' ? 'alert-danger' : 'alert-warn';
+      const prefix = cls === 'alert-danger' ? '⚠ Safety Alert: ' : 'Note: ';
+      return `<div class="alert-box ${cls}">${prefix}${escapeHtml(item.message)}</div>`;
+    }).join('');
+  }
+
+  function renderLog(logStats) {
+    elSnapCount.textContent = String(logStats.count);
+    elSnapVisMax.textContent = logStats.visMax !== null ? logStats.visMax.toFixed(2) : '—';
+    elSnapTrend.textContent = logStats.trendText;
+
+    // Preserve empty row template while rendering entries
+    const existingRows = Array.from(elLogTbody.querySelectorAll('tr[data-snap-idx]'));
+    for (const r of existingRows) r.remove();
+
+    if (serialLog.length === 0) {
+      elLogEmptyRow.classList.remove('hidden');
+      return;
+    }
+    elLogEmptyRow.classList.add('hidden');
+
+    serialLog.forEach((snap, idx) => {
+      const tr = document.createElement('tr');
+      tr.setAttribute('data-snap-idx', String(idx));
+      tr.innerHTML =
+        `<td>${idx + 1}</td>` +
+        `<td>${escapeHtml(snap.timeLabel)}</td>` +
+        `<td class="num"><strong>${Number(snap.coreVis).toFixed(2)}</strong></td>` +
+        `<td class="num">${Number.isFinite(snap.extendedVis) ? Number(snap.extendedVis).toFixed(2) : '—'}</td>` +
+        `<td class="num">${snap.map ? escapeHtml(snap.map) : '—'}</td>` +
+        `<td class="num">${snap.lactate ? escapeHtml(snap.lactate) : '—'}</td>` +
+        `<td class="num no-print"><button type="button" class="btn btn-sm" data-del-snap="${idx}">Remove</button></td>`;
+      elLogTbody.appendChild(tr);
+    });
+  }
+
+  let latestEval = null;
+  let latestState = null;
+
+  function recalculate() {
+    const state = readState();
+    const res = VIS_ENGINE.evaluate(state);
+    latestState = state;
+    latestEval = res;
+
+    // Noradrenaline tartrate banner
+    if (res.norepiSalt === 'tartrate') {
+      elNorepiSaltPill.classList.remove('hidden');
+    } else {
+      elNorepiSaltPill.classList.add('hidden');
+    }
+
+    // Weight highlighting & inline message
+    elWeight.classList.remove('is-invalid', 'needs-attention');
+    elWeightWrap.classList.remove('has-error');
+    if (res.weightInvalid) {
+      elWeight.classList.add('is-invalid');
+      elWeightError.textContent = 'Enter a positive weight in kg.';
+      elWeightError.classList.remove('hidden');
+    } else if (res.needsWeightAnywhere) {
+      elWeight.classList.add('needs-attention');
+      elWeightError.textContent = 'Weight required for selected infusion unit(s).';
+      elWeightError.classList.remove('hidden');
+    } else {
+      elWeightError.textContent = '';
+      elWeightError.classList.add('hidden');
+    }
+
+    // Alerts
+    renderAlerts(elBlockingAlerts, res.blockingErrors, 'alert-danger');
+    renderAlerts(elPlausibilityAlerts, res.plausibilityWarnings, 'alert-warn');
+
+    // Update drug cards & breakdown rows
+    let showExtRows = false;
+    for (const def of DRUG_DEFS) {
+      const refs = drugEls[def.key];
+      const d = res.drugs[def.key];
+
+      refs.card.classList.toggle('is-active', d.active);
+      refs.dose.classList.toggle('is-invalid', d.status === 'invalid');
+
+      if (refs.dilRow) {
+        const showDil = d.unit === 'mL/hr';
+        refs.dilRow.classList.toggle('hidden', !showDil);
+        const dilMissing = d.status === 'needs_dilution' || d.missingDilution;
+        const amtInvalid = showDil && d.active && dilMissing && !(Number(refs.amt.value) > 0);
+        const volInvalid = showDil && d.active && dilMissing && !(Number(refs.vol.value) > 0);
+        refs.amt.classList.toggle('needs-attention', amtInvalid);
+        refs.vol.classList.toggle('needs-attention', volInvalid);
+
+        // Highlight active dilution preset chip if matched
+        const chips = refs.dilRow.querySelectorAll('.chip-btn');
+        chips.forEach(chip => {
+          const matched = Number(refs.amt.value) === Number(chip.dataset.amt) &&
+                          Number(refs.vol.value) === Number(chip.dataset.vol) &&
+                          refs.amt.value !== '' && refs.vol.value !== '';
+          chip.classList.toggle('active-chip', matched);
+        });
+      }
+
+      // Hint text
+      refs.hint.classList.toggle('err', d.status !== 'ok');
+      if (!d.active && d.status === 'ok') {
+        refs.hint.textContent = def.key === 'vaso'
+          ? 'Inactive (typical fixed rate: 1.8–2.4 U/hr = 0.03–0.04 U/min)'
+          : 'Inactive';
+      } else if (d.status === 'invalid') {
+        refs.hint.textContent = 'Invalid entry — enter non-negative number';
+      } else if (d.status === 'needs_weight') {
+        refs.hint.textContent = 'Enter weight (kg) above to convert ' + d.unit;
+      } else if (d.status === 'needs_dilution') {
+        refs.hint.textContent = 'Enter dilution amount & volume (mL) for mL/hr';
+      } else {
+        let hint = `= ${d.canon.toFixed(def.canonDecimals)} ${def.canonUnit}`;
+        if (def.key === 'norepi' && d.saltFactor === 0.5) {
+          hint += ` → ${d.effectiveCanon.toFixed(def.canonDecimals)} ${def.canonUnit} base equiv.`;
+        }
+        hint += ` (${d.contribution.toFixed(2)} VIS pts)`;
+        refs.hint.textContent = hint;
+      }
+
+      // Breakdown row
+      refs.row.classList.toggle('inactive-row', !d.active && d.status === 'ok');
+      if (def.group === 'extended') {
+        const visible = d.active || d.status !== 'ok';
+        refs.row.classList.toggle('hidden', !visible);
+        if (visible) showExtRows = true;
+      }
+
+      if (d.status === 'needs_weight') {
+        refs.canon.textContent = 'Weight required';
+        refs.contrib.textContent = 'Needs weight';
+      } else if (d.status === 'needs_dilution') {
+        refs.canon.textContent = 'Dilution required';
+        refs.contrib.textContent = 'Needs dilution';
+      } else if (d.status === 'invalid') {
+        refs.canon.textContent = 'Invalid input';
+        refs.contrib.textContent = 'Invalid';
+      } else {
+        const canonText = def.key === 'norepi' && d.saltFactor === 0.5 && d.active
+          ? `${d.effectiveCanon.toFixed(def.canonDecimals)} ${def.canonUnit} base (×0.5)`
+          : `${d.canon.toFixed(def.canonDecimals)} ${def.canonUnit}`;
+        refs.canon.textContent = canonText;
+        refs.contrib.textContent = d.contribution.toFixed(2);
+      }
+    }
+
+    // Extended section badge & subtotal visibility
+    elExtendedActiveBadge.textContent = `${res.extendedActiveCount} active`;
+    elExtendedActiveBadge.classList.toggle('has-items', res.extendedActiveCount > 0);
+    elExtendedBreakdownDivider.classList.toggle('hidden', !showExtRows);
+    elExtendedBreakdownSub.classList.toggle('hidden', !showExtRows);
+    elContribExtSub.innerHTML = `<strong>${res.extendedDelta !== null ? res.extendedDelta.toFixed(2) : '—'}</strong>`;
+
+    // Core Score Hero
+    elCoreScoreBox.className = 'score-hero ' + (res.coreTier ? res.coreTier.css : 'tier-neutral');
+    if (res.coreTotal !== null) {
+      elCoreScore.textContent = res.coreTotal.toFixed(2);
+      elCoreTierBadge.textContent = res.coreTier.label;
+      elCoreTierDesc.textContent = res.coreTier.summary;
+    } else {
+      elCoreScore.textContent = '—';
+      elCoreTierBadge.textContent = 'Pending Required Inputs';
+      elCoreTierDesc.textContent = 'Resolve highlighted weight, dilution, or invalid dose fields above.';
+    }
+
+    // Extended Score Box
+    if (res.extendedTotal !== null) {
+      elExtendedScore.textContent = res.extendedTotal.toFixed(2);
+      if (res.extendedActiveCount > 0 && res.extendedDelta !== null) {
+        elExtendedDeltaNote.textContent = `Core VIS + ${res.extendedDelta.toFixed(2)} extended pts (${res.extendedActiveCount} active)`;
+      } else {
+        elExtendedDeltaNote.textContent = 'Extended VIS = Core VIS (no extended agents active)';
+      }
+    } else {
+      elExtendedScore.textContent = '—';
+      elExtendedDeltaNote.textContent = 'Pending valid Core & Extended inputs.';
+    }
+
+    if (res.extendedCrossesHigherTier) {
+      elExtendedTierAlert.textContent = `Extended VIS crosses into higher band: ${res.extendedTier.label} (${res.extendedTier.summary})`;
+      elExtendedTierAlert.classList.remove('hidden');
+    } else {
+      elExtendedTierAlert.classList.add('hidden');
+    }
+
+    // >20 Guardrail Callout
+    const showGuardrail =
+      (res.coreTotal !== null && res.coreTotal > 20) ||
+      (res.extendedTotal !== null && res.extendedTotal > 20);
+    elVisGuardrailCallout.classList.toggle('hidden', !showGuardrail);
+
+    // Phenotype mismatch warning
+    const pheno = state.ecmo.phenotype;
+    if (pheno === 'Pure Vasodilatory / Septic Shock (non-cardiogenic)') {
+      elPhenotypeWarning.textContent = 'Phenotype Warning: VA-ECMO has limited role in pure vasodilatory/septic shock without concurrent myocardial dysfunction (consider bedside echo to exclude septic cardiomyopathy). VIS alone does not justify VA-ECMO.';
+      elPhenotypeWarning.classList.remove('hidden');
+    } else if (pheno === 'Isolated Respiratory Failure (VV-ECMO)') {
+      elPhenotypeWarning.textContent = 'Phenotype Warning: VIS is NOT a primary activation criterion for VV-ECMO in isolated respiratory failure. Assess PaO2/FiO2, ventilatory mechanics, and RV strain.';
+      elPhenotypeWarning.classList.remove('hidden');
+    } else {
+      elPhenotypeWarning.classList.add('hidden');
+    }
+
+    // Check counts
+    const perfCount = state.ecmo.perfusionChecked.length;
+    elPerfBadge.textContent = `${perfCount} / 5 selected`;
+    elPerfBadge.classList.toggle('has-items', perfCount > 0);
+
+    const exclCount = state.ecmo.exclusionsChecked.length;
+    elExclBadge.textContent = `${exclCount} flagged`;
+    elExclBadge.classList.toggle('is-red', exclCount > 0);
+
+    // Serial log stats + SBAR
+    const logStats = VIS_ENGINE.computeLogStats(serialLog);
+    renderLog(logStats);
+    elSbarOutput.value = VIS_ENGINE.formatSBAR(state, res, logStats);
+  }
+
+  // Event listeners for inputs/selects
+  document.querySelectorAll('input, select').forEach(el => {
+    el.addEventListener('input', recalculate);
+    el.addEventListener('change', recalculate);
+  });
+
+  // Dilution preset chips
+  document.querySelectorAll('.chip-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const key = btn.dataset.drug;
+      const refs = drugEls[key];
+      if (!refs || !refs.amt || !refs.vol) return;
+      refs.amt.value = btn.dataset.amt;
+      refs.vol.value = btn.dataset.vol;
+      recalculate();
+    });
+  });
+
+  // Record serial snapshot
+  elRecordSnapBtn.addEventListener('click', () => {
+    if (!latestEval || latestEval.coreTotal === null) {
+      elSnapStatus.textContent = 'Resolve Core VIS inputs before recording.';
+      setTimeout(() => { elSnapStatus.textContent = ''; }, 3000);
+      return;
+    }
+    elSnapStatus.textContent = '';
+    const now = new Date();
+    serialLog.push({
+      timestampISO: now.toISOString(),
+      timeLabel: now.toLocaleTimeString('en-SG', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+      coreVis: Number(latestEval.coreTotal.toFixed(2)),
+      extendedVis: latestEval.extendedTotal !== null ? Number(latestEval.extendedTotal.toFixed(2)) : null,
+      map: (latestState.ecmo.map || '').trim(),
+      lactate: (latestState.ecmo.lactate || '').trim()
+    });
+    saveLog();
+    recalculate();
+  });
+
+  // Delete single snapshot row
+  elLogTbody.addEventListener('click', e => {
+    const btn = e.target.closest('button[data-del-snap]');
+    if (!btn) return;
+    const idx = Number(btn.getAttribute('data-del-snap'));
+    if (Number.isInteger(idx) && idx >= 0 && idx < serialLog.length) {
+      serialLog.splice(idx, 1);
+      saveLog();
+      recalculate();
+    }
+  });
+
+  elClearLogBtn.addEventListener('click', () => {
+    serialLog = [];
+    saveLog();
+    recalculate();
+  });
+
+  elResetDosesBtn.addEventListener('click', () => {
+    for (const def of DRUG_DEFS) {
+      const refs = drugEls[def.key];
+      refs.dose.value = '';
+      refs.unit.value = def.defaultUnit;
+      if (refs.amt) refs.amt.value = '';
+      if (refs.vol) refs.vol.value = '';
+    }
+    recalculate();
+  });
+
+  elResetAllBtn.addEventListener('click', () => {
+    elWeight.value = '';
+    elWeightBasis.value = 'ABW';
+    elNorepiSalt.value = 'base';
+    elSiteLabel.value = '';
+    for (const def of DRUG_DEFS) {
+      const refs = drugEls[def.key];
+      refs.dose.value = '';
+      refs.unit.value = def.defaultUnit;
+      if (refs.amt) refs.amt.value = '';
+      if (refs.vol) refs.vol.value = '';
+    }
+    elShockPhenotype.value = 'Not specified';
+    elScaiStage.value = 'Unassigned';
+    elCurrentMcs.value = 'None';
+    elEcmoMap.value = '';
+    elEcmoLactate.value = '';
+    elLactateTrend.value = 'Not checked';
+    elEchoNote.value = '';
+    for (const id of [...PERF_IDS, ...EXCL_IDS]) {
+      document.getElementById(id).checked = false;
+    }
+    elExtendedDetails.open = false;
+    serialLog = [];
+    saveLog();
+    elCopyStatus.textContent = '';
+    recalculate();
+  });
+
+  // Copy SBAR with fallback for file:// contexts
+  elCopyBtn.addEventListener('click', async () => {
+    const text = elSbarOutput.value;
+    let copied = false;
+    if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+      try {
+        await navigator.clipboard.writeText(text);
+        copied = true;
+      } catch (e) {
+        copied = false;
+      }
+    }
+    if (!copied) {
+      elSbarOutput.focus();
+      elSbarOutput.select();
+      try {
+        copied = document.execCommand('copy');
+      } catch (e) {
+        copied = false;
+      }
+    }
+    elCopyStatus.textContent = copied ? 'Copied SBAR summary!' : 'Select text above and copy manually.';
+    setTimeout(() => { elCopyStatus.textContent = ''; }, 3000);
+  });
+
+  elPrintBtn.addEventListener('click', () => {
+    window.print();
+  });
+
+  recalculate();
+})();
+</script>
+</body>
+</html>
